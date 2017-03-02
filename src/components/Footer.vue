@@ -3,7 +3,13 @@
     <div class="container">
       <div class="has-text-centered">
         <p>
-          <strong>social-ui</strong> by aaron-tay using <a href="//bulma.io/" target="_blank">bulma.io</a>
+          <router-link :to="{ name: 'home' }">
+            <strong>social-ui</strong>
+          </router-link>
+          by
+          <a href="https://aaron-tay.github.io" target="_blank">aaron-tay</a>
+          using
+          <a href="//bulma.io/" target="_blank">bulma.io</a>
         </p>
       </div>
     </div>

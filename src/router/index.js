@@ -38,6 +38,13 @@ export default new Router({
           name: 'profile/followers',
           component: ProfilePeople,
         },
+        {
+          // Handle base case of directly accessing the root of a profile
+          path: '',
+          redirect: {
+            name: 'profile/items',
+          },
+        },
       ],
     },
     {

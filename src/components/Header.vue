@@ -1,9 +1,9 @@
 <template>
   <nav class="nav has-shadow">
     <div class="nav-left">
-      <a class="nav-item">
+      <router-link :to="{ name: 'home' }" class="nav-item">
         <img src="https://placehold.it/64x64" alt="social-ui"/>&nbsp;social-ui
-      </a>
+      </router-link>
     </div>
 
     <div class="nav-center">
@@ -21,7 +21,12 @@
     <!-- Add the modifier "is-active" to display it on mobile -->
     <div class="nav-right nav-menu" :class="navMenuClass">
       <router-link :to="{ name: 'profile', params: { profileId: 'me' } }" class="nav-item">
-        Profile
+        <span class="icon">
+          <i class="fa fa-user"></i>
+        </span>
+        <span>
+          Profile
+        </span>
       </router-link>
 
       <span class="nav-item">

@@ -108,7 +108,7 @@
                 Maecenas ut leo in nisl tincidunt fermentum ut at odio.
               </h2>
               <p>
-                <button class="button">Get started</button>
+                <button class="button is-primary">Get started</button>
               </p>
             </div>
           </div>
@@ -135,7 +135,7 @@
                 Suscipit ac dolor Maecenas ac leo pellentesque.
               </h2>
               <p>
-                <button class="button is-outlined">Learn more</button>
+                <button class="button is-primary is-outlined">Learn more</button>
               </p>
             </div>
           </div>
@@ -179,7 +179,9 @@
           <h2 class="subtitle">
             Unlock awesomeness
           </h2>
-          <button class="button is-medium is-inverted">Get started</button>
+          <router-link :to="{ name: 'profile', params: { profileId: 'me' } }" class="button is-primary is-medium is-inverted">
+            Get started
+          </router-link>
         </div>
       </div>
     </section>

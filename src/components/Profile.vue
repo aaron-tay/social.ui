@@ -95,6 +95,20 @@ export default {
       return numeral(number).format('0.0a');
     },
   },
+  watch: {
+    profileId() {
+      // Simulate loading a new profile whenever the profileId changes
+      this.name = chance.name();
+      this.bio = chance.paragraph();
+      this.avatarUrl = 'https://placehold.it/256x256';
+      this.stats = {
+        item: this.prettyNumber(chance.natural({ max: MAX_NUMBER })),
+        collection: this.prettyNumber(chance.natural({ max: MAX_NUMBER })),
+        followee: this.prettyNumber(chance.natural({ max: MAX_NUMBER })),
+        follower: this.prettyNumber(chance.natural({ max: MAX_NUMBER })),
+      };
+    },
+  },
 };
 </script>
 
