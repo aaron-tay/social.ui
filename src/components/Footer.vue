@@ -3,7 +3,7 @@
     <div class="container">
       <div class="has-text-centered">
         <p>
-          <strong>social-ui</strong> by aaron-tay using bulma.io
+          <strong>social-ui</strong> by aaron-tay using <a href="//bulma.io/" target="_blank">bulma.io</a>
         </p>
       </div>
     </div>
