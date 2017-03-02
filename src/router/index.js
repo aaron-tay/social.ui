@@ -10,24 +10,29 @@ Vue.use(Router);
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'Profile',
+      path: '/u/:profileId',
+      name: 'profile',
       component: Profile,
+      props: true,
       children: [
         {
           path: 'i',
+          name: 'profile/items',
           component: ProfileItems,
         },
         {
           path: 'c',
+          name: 'profile/collections',
           component: ProfileCollections,
         },
         {
           path: 'e',
+          name: 'profile/following',
           component: ProfilePeople,
         },
         {
           path: 'r',
+          name: 'profile/followers',
           component: ProfilePeople,
         },
       ],

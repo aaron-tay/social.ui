@@ -13,7 +13,8 @@
             {{ person.name }}
           </h1>
           <p>
-            <span class="button is-primary is-outlined is-fullwidth">follow</span>
+            <button class="button is-primary is-outlined is-fullwidth" v-if="person.isFollowed" @click="toggleFollowing(person)">following</button>
+            <button class="button is-primary is-fullwidth" v-else @click="toggleFollowing(person)">follow</button>
           </p>
         </div>
       </div>
@@ -43,7 +44,8 @@
               {{ person.name }}
             </span>
             &nbsp;
-            <span class="button is-primary is-outlined">follow</span>
+            <button class="button is-primary is-outlined" v-if="person.isFollowed" @click="toggleFollowing(person)">following</button>
+            <button class="button is-primary" v-else @click="toggleFollowing(person)">follow</button>
           </p>
           <p>
             <span class="subtitle">
@@ -64,6 +66,12 @@ export default {
   data() {
     return {
     };
+  },
+  methods: {
+    toggleFollowing(iPerson) {
+      const person = iPerson;
+      person.isFollowed = !person.isFollowed;
+    },
   },
 };
 </script>

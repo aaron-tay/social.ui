@@ -13,7 +13,9 @@
             <div class="media-content">
               <div class="content">
                 <p>
-                  <strong>{{ person.name }}</strong>
+                  <router-link :to="{ name: 'profile', params: { profileId: person.profileId }}">
+                    <strong>{{ person.name }}</strong>
+                  </router-link>
                   <br />
                   <span>
                     {{ person.bio }}
@@ -22,6 +24,7 @@
               </div>
             </div>
             <div class="media-right">
+              <br />
               <button class="button is-primary is-outlined" v-if="person.isFollowed" @click="toggleFollowing(person)">following</button>
               <button class="button is-primary" v-else @click="toggleFollowing(person)">follow</button>
             </div>
@@ -43,6 +46,7 @@ export default {
   data() {
     return {
       personList: lodash.times(12, () => ({
+        profileId: chance.hash(),
         name: chance.name(),
         bio: chance.sentence({ words: 5 }),
         avatarUrl: 'https://placehold.it/256x256',

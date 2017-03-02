@@ -12,25 +12,25 @@
       <div class="container">
         <div class="columns">
           <div class="column level is-mobile">
-            <router-link to="/i" class="level-item has-text-centered">
+            <router-link :to="{ name: 'profile/items', params: { profileId } }" class="level-item has-text-centered">
               <div>
                 <p>{{ stats.item }}</p>
                 <p>Items</p>
               </div>
             </router-link>
-            <router-link to="/c" class="level-item has-text-centered">
+            <router-link :to="{ name: 'profile/collections', params: { profileId } }" class="level-item has-text-centered">
               <div>
                 <p>{{ stats.collection }}</p>
                 <p>Collections</p>
               </div>
             </router-link>
-            <router-link to="/e" class="level-item has-text-centered">
+            <router-link :to="{ name: 'profile/following', params: { profileId } }" class="level-item has-text-centered">
               <div>
                 <p>{{ stats.followee }}</p>
                 <p>Following</p>
               </div>
             </router-link>
-            <router-link to="/r" class="level-item has-text-centered">
+            <router-link :to="{ name: 'profile/followers', params: { profileId } }" class="level-item has-text-centered">
               <div>
                 <p>{{ stats.follower }}</p>
                 <p>Followers</p>
@@ -60,6 +60,7 @@ const MAX_NUMBER = (10 ** 9);
 
 export default {
   name: 'profile',
+  props: ['profileId'],
   components: {
     SuiHeader,
     SuiFooter,
@@ -84,6 +85,8 @@ export default {
         name: this.name,
         bio: this.bio,
         avatarUrl: this.avatarUrl,
+        isFollowed: false,
+        profileId: this.profileId,
       };
     },
   },

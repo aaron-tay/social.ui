@@ -20,9 +20,9 @@
     <!-- This "nav-menu" is hidden on mobile -->
     <!-- Add the modifier "is-active" to display it on mobile -->
     <div class="nav-right nav-menu" :class="navMenuClass">
-      <a class="nav-item">
+      <router-link :to="{ name: 'profile', params: { profileId: 'me' } }" class="nav-item">
         Profile
-      </a>
+      </router-link>
 
       <span class="nav-item">
         <a class="button is-primary">
