@@ -12,43 +12,35 @@
       <div class="container">
         <div class="columns">
           <div class="column level is-mobile">
-            <div class="level-item has-text-centered">
+            <router-link to="/i" class="level-item has-text-centered">
               <div>
                 <p>3,456</p>
                 <p>Items</p>
               </div>
-            </div>
-            <div class="level-item has-text-centered">
+            </router-link>
+            <router-link to="/c" class="level-item has-text-centered">
               <div>
                 <p>789</p>
                 <p>Collections</p>
               </div>
-            </div>
-            <div class="level-item has-text-centered">
+            </router-link>
+            <router-link to="/e" class="level-item has-text-centered">
               <div>
                 <p>123</p>
                 <p>Following</p>
               </div>
-            </div>
-            <div class="level-item has-text-centered">
+            </router-link>
+            <router-link to="/r" class="level-item has-text-centered">
               <div>
                 <p>456K</p>
                 <p>Followers</p>
               </div>
-            </div>
+            </router-link>
           </div>
         </div>
       </div>
       <div class="container">
-        <div class="columns is-multiline is-mobile">
-          <template v-for="i in 12">
-            <div class="column is-one-third">
-              <div class="image is-1by1">
-                <img src="https://placehold.it/256x256" />
-              </div>
-            </div>
-          </template>
-        </div>
+        <router-view></router-view>
       </div>
     </div>
 
@@ -85,5 +77,13 @@ export default {
 }
 .sui-avatar img {
   border-radius: 999px;
+}
+
+a.level-item {
+  color: #363636;
+}
+
+a.level-item.router-link-active {
+  color: #00d1b2;
 }
 </style>
