@@ -4,7 +4,7 @@
 
     <div class="section">
       <div class="container">
-        <profile-header></profile-header>
+        <profile-header :person="person"></profile-header>
       </div>
       <div class="container">
         <hr />
@@ -14,25 +14,25 @@
           <div class="column level is-mobile">
             <router-link to="/i" class="level-item has-text-centered">
               <div>
-                <p>3,456</p>
+                <p>{{ stats.item }}</p>
                 <p>Items</p>
               </div>
             </router-link>
             <router-link to="/c" class="level-item has-text-centered">
               <div>
-                <p>789</p>
+                <p>{{ stats.collection }}</p>
                 <p>Collections</p>
               </div>
             </router-link>
             <router-link to="/e" class="level-item has-text-centered">
               <div>
-                <p>123</p>
+                <p>{{ stats.followee }}</p>
                 <p>Following</p>
               </div>
             </router-link>
             <router-link to="/r" class="level-item has-text-centered">
               <div>
-                <p>456K</p>
+                <p>{{ stats.follower }}</p>
                 <p>Followers</p>
               </div>
             </router-link>
@@ -49,9 +49,14 @@
 </template>
 
 <script>
+import Chance from 'chance';
+import numeral from 'numeral';
 import SuiHeader from './Header';
 import SuiFooter from './Footer';
 import ProfileHeader from './ProfileHeader';
+
+const chance = new Chance();
+const MAX_NUMBER = (10 ** 9);
 
 export default {
   name: 'profile',
@@ -62,11 +67,30 @@ export default {
   },
   data() {
     return {
+      name: chance.name(),
+      bio: chance.paragraph(),
+      avatarUrl: 'https://placehold.it/256x256',
+      stats: {
+        item: this.prettyNumber(chance.natural({ max: MAX_NUMBER })),
+        collection: this.prettyNumber(chance.natural({ max: MAX_NUMBER })),
+        followee: this.prettyNumber(chance.natural({ max: MAX_NUMBER })),
+        follower: this.prettyNumber(chance.natural({ max: MAX_NUMBER })),
+      },
     };
   },
   computed: {
+    person() {
+      return {
+        name: this.name,
+        bio: this.bio,
+        avatarUrl: this.avatarUrl,
+      };
+    },
   },
   methods: {
+    prettyNumber(number) {
+      return numeral(number).format('0.0a');
+    },
   },
 };
 </script>

@@ -5,12 +5,12 @@
       <div class="columns is-mobile">
         <div class="column">
           <div class="image is-1by1 sui-avatar">
-            <img src="https://placehold.it/256x256" />
+            <img :src="person.avatarUrl" />
           </div>
         </div>
         <div class="column is-two-thirds">
           <h1 class="title is-bold">
-            Name Here
+            {{ person.name }}
           </h1>
           <p>
             <span class="button is-primary is-outlined is-fullwidth">follow</span>
@@ -21,7 +21,7 @@
         <div class="column">
           <p>
             <span class="subtitle">
-              this is where more stuff is
+              <small>{{ person.bio }}</small>
             </span>
           </p>
         </div>
@@ -33,21 +33,21 @@
         <div class="column is-1"></div>
         <div class="column">
           <div class="image is-1by1 sui-avatar">
-            <img src="https://placehold.it/256x256" />
+            <img :src="person.avatarUrl" />
           </div>
         </div>
         <div class="column is-1"></div>
         <div class="column is-two-thirds">
           <p>
             <span class="title is-bold">
-              Name Here
+              {{ person.name }}
             </span>
             &nbsp;
             <span class="button is-primary is-outlined">follow</span>
           </p>
           <p>
             <span class="subtitle">
-              this is where more stuff is
+              <small>{{ person.bio }}</small>
             </span>
           </p>
         </div>
@@ -57,6 +57,15 @@
 </template>
 
 <script>
+export default {
+  props: {
+    person: Object,
+  },
+  data() {
+    return {
+    };
+  },
+};
 </script>
 
 <style lang="scss">
