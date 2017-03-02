@@ -1,5 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import Login from '@/components/Login';
+import Register from '@/components/Register';
 import Profile from '@/components/Profile';
 import ProfileItems from '@/components/ProfileItems';
 import ProfileCollections from '@/components/ProfileCollections';
@@ -36,6 +38,18 @@ export default new Router({
           component: ProfilePeople,
         },
       ],
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login,
+      props: true,
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: Register,
+      props: true,
     },
   ],
 });
