@@ -2,6 +2,10 @@
 
 > Basic UI for social network application
 
+## Overview
+
+This project uses [VueJS](https://vuejs.org/) and [Bulma.io](https://bulma.io) to create some basic UI templates for a typical social network application. Nothing too fancy with most data mocked.
+
 ## Build Setup
 
 ``` bash
