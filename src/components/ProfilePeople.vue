@@ -36,10 +36,8 @@
 </template>
 
 <script>
-import Chance from 'chance';
 import lodash from 'lodash';
-
-const chance = new Chance();
+import chance from '@/helpers/chance';
 
 export default {
   name: 'profileCollections',

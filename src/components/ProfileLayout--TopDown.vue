@@ -54,14 +54,13 @@
 </template>
 
 <script>
-import Chance from 'chance';
 import numeral from 'numeral';
+import chance from '@/helpers/chance';
 import SuiHeader from './Header';
 import SuiFooter from './Footer';
 import ProfileHeaderWide from './profile/Header--wide';
 import ProfileHeaderMobile from './profile/Header--mobile';
 
-const chance = new Chance();
 const MAX_NUMBER = (10 ** 9);
 
 export default {
