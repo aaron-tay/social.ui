@@ -7,6 +7,7 @@ cause
 The layout is only rendered that first time. This is useful for testing but not very practical long term
 -->
 <script>
+import store from '@/helpers/store';
 import ProfileTopDown from '@/components/ProfileLayout--TopDown';
 import ProfileNarrowWide from '@/components/ProfileLayout--NarrowWide';
 import ProfileHeroSidebar from '@/components/ProfileLayout--HeroSidebar';
@@ -31,6 +32,14 @@ export default {
       profileComponent = ProfileHeroSidebar;
     }
     return createElement(profileComponent, context.data, context.children);
+  },
+  beforeRouteEnter(to, from, next) {
+    store.getProfileById(to.params.profileId);
+    next();
+  },
+  beforeRouteUpdate(to, from, next) {
+    store.getProfileById(to.params.profileId);
+    next();
   },
 };
 </script>

@@ -37,28 +37,38 @@
 
 <script>
 import lodash from 'lodash';
-import chance from '@/helpers/chance';
+import store from '@/helpers/store';
 
 export default {
   name: 'profileCollections',
+  props: ['profileId', 'peopleListType'],
   data() {
     return {
-      personList: lodash.times(12, () => ({
-        profileId: chance.hash(),
-        name: chance.name(),
-        bio: chance.sentence({ words: 5 }),
-        avatarUrl: 'https://placehold.it/256x256',
-        isFollowed: chance.bool(),
-      })),
+      people: store.people,
     };
   },
   created() {
     // fetch data
   },
+  computed: {
+    person() {
+      return this.people[this.profileId];
+    },
+    personList() {
+      return lodash.map(this.activePersonList, litePerson => (
+        this.people[litePerson.profileId]
+      ));
+    },
+    activePersonList() {
+      if (this.peopleListType === 'followers') {
+        return this.person.followersList;
+      }
+      return this.person.followingList;
+    },
+  },
   methods: {
-    toggleFollowing(iPerson) {
-      const person = iPerson;
-      person.isFollowed = !person.isFollowed;
+    toggleFollowing(person) {
+      store.toggleFollowState(person.profileId);
     },
   },
 };

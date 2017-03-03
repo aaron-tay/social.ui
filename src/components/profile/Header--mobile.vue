@@ -30,6 +30,8 @@
 </template>
 
 <script>
+import store from '@/helpers/store';
+
 export default {
   props: {
     person: Object,
@@ -39,9 +41,8 @@ export default {
     };
   },
   methods: {
-    toggleFollowing(iPerson) {
-      const person = iPerson;
-      person.isFollowed = !person.isFollowed;
+    toggleFollowing(person) {
+      store.toggleFollowState(person.profileId);
     },
   },
 };

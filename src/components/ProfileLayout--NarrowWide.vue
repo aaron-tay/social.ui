@@ -19,25 +19,25 @@
                 <div class="column level is-mobile">
                   <router-link :to="{ name: 'profile/items', params: { profileId } }" class="level-item has-text-centered">
                     <div>
-                      <p>{{ stats.item }}</p>
+                      <p>{{ person.stats.item }}</p>
                       <p>Items</p>
                     </div>
                   </router-link>
                   <router-link :to="{ name: 'profile/collections', params: { profileId } }" class="level-item has-text-centered">
                     <div>
-                      <p>{{ stats.collection }}</p>
+                      <p>{{ person.stats.collection }}</p>
                       <p>Collections</p>
                     </div>
                   </router-link>
                   <router-link :to="{ name: 'profile/following', params: { profileId } }" class="level-item has-text-centered">
                     <div>
-                      <p>{{ stats.followee }}</p>
+                      <p>{{ person.stats.followee }}</p>
                       <p>Following</p>
                     </div>
                   </router-link>
                   <router-link :to="{ name: 'profile/followers', params: { profileId } }" class="level-item has-text-centered">
                     <div>
-                      <p>{{ stats.follower }}</p>
+                      <p>{{ person.stats.follower }}</p>
                       <p>Followers</p>
                     </div>
                   </router-link>
@@ -58,14 +58,11 @@
 </template>
 
 <script>
-import numeral from 'numeral';
-import chance from '@/helpers/chance';
+import store from '@/helpers/store';
 import SuiHeader from './Header';
 import SuiFooter from './Footer';
 import ProfileHeaderNarrow from './profile/Header--narrow';
 import ProfileHeaderMobile from './profile/Header--mobile';
-
-const MAX_NUMBER = (10 ** 9);
 
 export default {
   name: 'profile--narrow-wide',
@@ -78,45 +75,12 @@ export default {
   },
   data() {
     return {
-      name: chance.name(),
-      bio: chance.paragraph(),
-      avatarUrl: 'https://placehold.it/256x256',
-      stats: {
-        item: this.prettyNumber(chance.natural({ max: MAX_NUMBER })),
-        collection: this.prettyNumber(chance.natural({ max: MAX_NUMBER })),
-        followee: this.prettyNumber(chance.natural({ max: MAX_NUMBER })),
-        follower: this.prettyNumber(chance.natural({ max: MAX_NUMBER })),
-      },
+      people: store.people,
     };
   },
   computed: {
     person() {
-      return {
-        name: this.name,
-        bio: this.bio,
-        avatarUrl: this.avatarUrl,
-        isFollowed: false,
-        profileId: this.profileId,
-      };
-    },
-  },
-  methods: {
-    prettyNumber(number) {
-      return numeral(number).format('0.0a');
-    },
-  },
-  watch: {
-    profileId() {
-      // Simulate loading a new profile whenever the profileId changes
-      this.name = chance.name();
-      this.bio = chance.paragraph();
-      this.avatarUrl = 'https://placehold.it/256x256';
-      this.stats = {
-        item: this.prettyNumber(chance.natural({ max: MAX_NUMBER })),
-        collection: this.prettyNumber(chance.natural({ max: MAX_NUMBER })),
-        followee: this.prettyNumber(chance.natural({ max: MAX_NUMBER })),
-        follower: this.prettyNumber(chance.natural({ max: MAX_NUMBER })),
-      };
+      return this.people[this.profileId];
     },
   },
 };

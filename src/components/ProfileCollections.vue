@@ -32,24 +32,23 @@
 </template>
 
 <script>
-import lodash from 'lodash';
-import chance from '@/helpers/chance';
+import store from '@/helpers/store';
 
 export default {
   name: 'profileCollections',
+  props: ['profileId'],
   data() {
     return {
-      collectionList: lodash.times(5, () => ({
-        name: chance.word(),
-        snippet: chance.sentence({ words: 5 }),
-        stats: {
-          count: chance.natural({ max: 100 }),
-        },
-      })),
+      people: store.people,
     };
   },
   created() {
     // fetch data
+  },
+  computed: {
+    collectionList() {
+      return this.people[this.profileId].collectionList;
+    },
   },
 };
 </script>

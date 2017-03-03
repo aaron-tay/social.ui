@@ -21,21 +21,31 @@ export default new Router({
           path: 'i',
           name: 'profile/items',
           component: ProfileItems,
+          props: true,
         },
         {
           path: 'c',
           name: 'profile/collections',
           component: ProfileCollections,
+          props: true,
         },
         {
           path: 'e',
           name: 'profile/following',
           component: ProfilePeople,
+          props: route => ({
+            profileId: route.params.profileId,
+            peopleListType: 'following',
+          }),
         },
         {
           path: 'r',
           name: 'profile/followers',
           component: ProfilePeople,
+          props: route => ({
+            profileId: route.params.profileId,
+            peopleListType: 'followers',
+          }),
         },
         {
           // This is the default child
