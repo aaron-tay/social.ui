@@ -1,0 +1,53 @@
+<template>
+  <!-- Optimised for use in a narrow column (on > tablet sizes) -->
+  <div>
+    <div class="columns">
+      <div class="column is-2"></div>
+      <div class="column">
+        <div class="image is-1by1 sui-avatar">
+          <img :src="person.avatarUrl" />
+        </div>
+      </div>
+      <div class="column is-2"></div>
+    </div>
+    <div class="columns">
+      <div class="column content">
+        <p>
+          <span class="title is-bold">
+            {{ person.name }}
+          </span>
+        </p>
+        <p>
+          <button class="button is-primary is-medium is-fullwidth is-outlined" v-if="person.isFollowed" @click="toggleFollowing(person)">following</button>
+          <button class="button is-primary is-medium is-fullwidth" v-else @click="toggleFollowing(person)">follow</button>
+        </p>
+        <p>
+          <span class="subtitle">
+            <small>{{ person.bio }}</small>
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    person: Object,
+  },
+  data() {
+    return {
+    };
+  },
+  methods: {
+    toggleFollowing(iPerson) {
+      const person = iPerson;
+      person.isFollowed = !person.isFollowed;
+    },
+  },
+};
+</script>
+
+<style lang="scss">
+</style>

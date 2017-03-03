@@ -4,7 +4,12 @@
 
     <div class="section">
       <div class="container">
-        <profile-header :person="person"></profile-header>
+        <div class="is-hidden-mobile">
+          <profile-header-wide :person="person"></profile-header-wide>
+        </div>
+        <div class="is-hidden-tablet">
+          <profile-header-mobile :person="person"></profile-header-mobile>
+        </div>
       </div>
       <div class="container">
         <hr />
@@ -53,7 +58,8 @@ import Chance from 'chance';
 import numeral from 'numeral';
 import SuiHeader from './Header';
 import SuiFooter from './Footer';
-import ProfileHeader from './ProfileHeader';
+import ProfileHeaderWide from './profile/Header--wide';
+import ProfileHeaderMobile from './profile/Header--mobile';
 
 const chance = new Chance();
 const MAX_NUMBER = (10 ** 9);
@@ -64,7 +70,8 @@ export default {
   components: {
     SuiHeader,
     SuiFooter,
-    ProfileHeader,
+    ProfileHeaderMobile,
+    ProfileHeaderWide,
   },
   data() {
     return {
