@@ -1,6 +1,6 @@
 <template>
   <div class="account-login">
-    <section class="hero is-light is-large">
+    <section class="hero is-light is-fullheight">
       <div class="hero-body">
         <div class="container is-fluid">
           <div class="columns">
