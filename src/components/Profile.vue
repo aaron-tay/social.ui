@@ -17,11 +17,10 @@ let layoutType = PROFILE_LAYOUT_TOP_DOWN;
 export default {
   props: ['profileId'],
   functional: true,
-  render(createElement, iContext) {
-    const context = iContext;
+  render(createElement, context) {
     const query = context.parent.$route.query;
     let profileComponent = ProfileTopDown;
-    if (query) {
+    if (query && query.layout !== layoutType) {
       layoutType = query.layout;
     }
     if (layoutType === PROFILE_LAYOUT_NARROW_WIDE) {
