@@ -69,7 +69,7 @@ const chance = new Chance();
 const MAX_NUMBER = (10 ** 9);
 
 export default {
-  name: 'profile',
+  name: 'profile--narrow-wide',
   props: ['profileId'],
   components: {
     SuiHeader,

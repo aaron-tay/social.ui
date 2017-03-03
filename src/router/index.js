@@ -1,28 +1,20 @@
 import Vue from 'vue';
-import lodash from 'lodash';
 import Router from 'vue-router';
 import Home from '@/components/Home';
 import Login from '@/components/Login';
 import Register from '@/components/Register';
-import ProfileTopDown from '@/components/ProfileLayout--TopDown';
-import ProfileNarrowWide from '@/components/ProfileLayout--NarrowWide';
+import Profile from '@/components/Profile';
 import ProfileItems from '@/components/ProfileItems';
 import ProfileCollections from '@/components/ProfileCollections';
 import ProfilePeople from '@/components/ProfilePeople';
 
 Vue.use(Router);
 
-// NOTE(ajt): Crude way to sample different profiles without adding more routes
-// Need to find a way to do this toggling via query params, which might require
-// an abstract 'wrapper' component
-const TheProfile = lodash.sample([ProfileTopDown, ProfileNarrowWide]);
-
 export default new Router({
   routes: [
     {
       path: '/u/:profileId',
-      name: 'profile',
-      component: TheProfile,
+      component: Profile,
       props: true,
       children: [
         {
@@ -46,8 +38,9 @@ export default new Router({
           component: ProfilePeople,
         },
         {
-          // Handle base case of directly accessing the root of a profile
+          // This is the default child
           path: '',
+          name: 'profile',
           redirect: {
             name: 'profile/items',
           },
