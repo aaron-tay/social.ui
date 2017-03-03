@@ -2,14 +2,14 @@
   <!-- Optimised for use in a wide column (on > tablet sizes) -->
   <div>
     <div class="columns is-mobile">
-      <div class="column is-1"></div>
-      <div class="column">
+      <div class="column is-4 is-offset-4">
         <div class="image is-1by1 sui-avatar">
           <img :src="person.avatarUrl" />
         </div>
       </div>
-      <div class="column is-1"></div>
-      <div class="column is-two-thirds content">
+    </div>
+    <div class="columns has-text-centered">
+      <div class="column content">
         <p>
           <span class="title is-bold">
             {{ person.name }}

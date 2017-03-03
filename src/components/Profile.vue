@@ -9,9 +9,11 @@ The layout is only rendered that first time. This is useful for testing but not 
 <script>
 import ProfileTopDown from '@/components/ProfileLayout--TopDown';
 import ProfileNarrowWide from '@/components/ProfileLayout--NarrowWide';
+import ProfileHeroSidebar from '@/components/ProfileLayout--HeroSidebar';
 
 const PROFILE_LAYOUT_NARROW_WIDE = 'narrow-wide';
 const PROFILE_LAYOUT_TOP_DOWN = 'top-down';
+const PROFILE_LAYOUT_HERO_SIDEBAR = 'hero-sidebar';
 let layoutType = PROFILE_LAYOUT_TOP_DOWN;
 
 export default {
@@ -25,6 +27,8 @@ export default {
     }
     if (layoutType === PROFILE_LAYOUT_NARROW_WIDE) {
       profileComponent = ProfileNarrowWide;
+    } else if (layoutType === PROFILE_LAYOUT_HERO_SIDEBAR) {
+      profileComponent = ProfileHeroSidebar;
     }
     return createElement(profileComponent, context.data, context.children);
   },
