@@ -20,7 +20,7 @@ export default {
   render(createElement, context) {
     const query = context.parent.$route.query;
     let profileComponent = ProfileTopDown;
-    if (query && query.layout !== layoutType) {
+    if (query && query.layout && query.layout !== layoutType) {
       layoutType = query.layout;
     }
     if (layoutType === PROFILE_LAYOUT_NARROW_WIDE) {
