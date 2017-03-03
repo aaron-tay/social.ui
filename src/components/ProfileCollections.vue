@@ -1,6 +1,5 @@
 <template>
   <div class="profile-collection">
-    <hr />
     <div class="columns is-mobile">
       <div class="column">
         <template v-for="collection in collectionList">
