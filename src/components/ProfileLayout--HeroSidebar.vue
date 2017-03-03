@@ -17,42 +17,57 @@
     <div class="section">
       <div class="container">
         <div class="columns">
-          <div class="column is-one-third">
-            <div class="panel">
-              <p class="panel-heading">
+          <div class="column is-one-quarter">
+            <aside class="menu">
+              <p class="menu-label">
                 Explore {{ person.name }}
               </p>
-              <router-link :to="{ name: 'profile/items', params: { profileId } }" active-class="is-active" class="panel-block">
-                <span class="panel-icon">
-                  <i class="fa fa-th"></i>
-                </span>
-                Items -
-                {{ stats.item }}
-              </router-link>
-              <router-link :to="{ name: 'profile/collections', params: { profileId } }" active-class="is-active" class="panel-block">
-                <span class="panel-icon">
-                  <i class="fa fa-list"></i>
-                </span>
-                Collections -
-                {{ stats.collection }}
-              </router-link>
-              <router-link :to="{ name: 'profile/following', params: { profileId } }" active-class="is-active" class="panel-block">
-                <span class="panel-icon">
-                  <i class="fa fa-eye"></i>
-                </span>
-                  Following -
-                  {{ stats.followee }}
-              </router-link>
-              <router-link :to="{ name: 'profile/followers', params: { profileId } }" active-class="is-active" class="panel-block">
-                <span class="panel-icon">
-                  <i class="fa fa-users"></i>
-                </span>
-                Followers -
-                {{ stats.follower }}
-              </router-link>
-            </div>
+              <ul class="menu-list">
+                <li>
+                  <router-link :to="{ name: 'profile/items', params: { profileId } }" active-class="is-active">
+                    <span class="panel-icon">
+                      <i class="fa fa-th"></i>
+                    </span>
+                    Items -
+                    {{ stats.item }}
+                  </router-link>
+                </li>
+                <li>
+                  <router-link :to="{ name: 'profile/collections', params: { profileId } }" active-class="is-active">
+                    <span class="panel-icon">
+                      <i class="fa fa-list"></i>
+                    </span>
+                    Collections -
+                    {{ stats.collection }}
+                  </router-link>
+                </li>
+              </ul>
+              <p class="menu-label">
+                People
+              </p>
+              <ul class="menu-list">
+                <li>
+                  <router-link :to="{ name: 'profile/following', params: { profileId } }" active-class="is-active">
+                    <span class="panel-icon">
+                      <i class="fa fa-eye"></i>
+                    </span>
+                    Following -
+                    {{ stats.followee }}
+                  </router-link>
+                </li>
+                <li>
+                  <router-link :to="{ name: 'profile/followers', params: { profileId } }" active-class="is-active">
+                    <span class="panel-icon">
+                      <i class="fa fa-users"></i>
+                    </span>
+                    Followers -
+                    {{ stats.follower }}
+                  </router-link>
+                </li>
+              </ul>
+            </aside>
           </div>
-          <div class="column is-two-third">
+          <div class="column">
             <router-view></router-view>
           </div>
         </div>
