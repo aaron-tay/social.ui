@@ -37,11 +37,9 @@ function generateLiteProfile() {
 
   const existingProfile = localState.people[profileId];
   if (existingProfile) {
-    console.log('existing lite', profileId, existingProfile);
     return existingProfile;
   }
 
-  console.log('new lite', profileId, existingProfile);
   const liteProfile = {
     profileId,
     name: chance.name(),
@@ -60,11 +58,9 @@ function generateProfile({ profileId, name, bio, avatarUrl, isFollowed }) {
 
   const existingProfile = localState.people[theProfileId];
   if (existingProfile && !existingProfile.isLite) {
-    console.log('existing', profileId, theProfileId, existingProfile);
     return existingProfile;
   }
 
-  console.log('new', profileId, theProfileId, existingProfile);
   const profile = {
     profileId: theProfileId,
     name: name || chance.name(),
@@ -86,13 +82,6 @@ function generateProfile({ profileId, name, bio, avatarUrl, isFollowed }) {
   setPerson(profile);
   return profile;
 }
-
-// function seedLiteProfiles(liteProfiles) {
-//   lodash.forEach(liteProfiles, (liteProfile) => {
-//     setPerson(liteProfile);
-//   });
-// }
-
 
 // NOTE(ajt): We'll run out of memory by storing too many things but for
 // the purposes of a prototype, this is probably fine ;)
