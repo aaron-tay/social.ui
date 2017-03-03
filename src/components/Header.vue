@@ -7,6 +7,10 @@
     </div>
 
     <div class="nav-center">
+      <span class="nav-item is-hidden-mobile">
+        Profile style &nbsp;
+        <profile-switcher></profile-switcher>
+      </span>
     </div>
 
     <!-- This "nav-toggle" hamburger menu is only visible on mobile -->
@@ -42,8 +46,13 @@
 </template>
 
 <script>
+import ProfileSwitcher from './ProfileSwitcher';
+
 export default {
   name: 'profile',
+  components: {
+    ProfileSwitcher,
+  },
   data() {
     return {
       isNavMenuActive: false,
