@@ -3,8 +3,8 @@
     <p class="control">
       <span class="select">
         <select v-model="selectedLayout">
-          <template v-for="layoutType in layoutTypes">
-            <option :value="layoutType">{{layoutType}}</option>
+          <template v-for="layoutStyle in layoutStyles">
+            <option :value="layoutStyle">{{layoutStyle}}</option>
           </template>
         </select>
       </span>
@@ -13,30 +13,31 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
+
 export default {
   data() {
     return {
-      layoutTypes: ['top-down', 'narrow-wide', 'hero-sidebar'],
-      selectedLayout: 'top-down',
+      layoutStyles: ['top-down', 'narrow-wide', 'hero-sidebar'],
     };
   },
-  created() {
-    this.selectedLayout = this.$route.query.layout || 'top-down';
+  computed: {
+    ...mapGetters([
+      'profileLayoutStyle',
+    ]),
+    selectedLayout: {
+      get() {
+        return this.profileLayoutStyle;
+      },
+      set(layoutStyle) {
+        this.setProfileLayoutStyle({ layoutStyle });
+      },
+    },
   },
   methods: {
-    changeStyle(layoutType) {
-      this.$router.replace({
-        path: this.$route.path,
-        query: {
-          layout: layoutType,
-        },
-      });
-    },
-  },
-  watch: {
-    selectedLayout() {
-      this.changeStyle(this.selectedLayout);
-    },
+    ...mapActions([
+      'setProfileLayoutStyle',
+    ]),
   },
 };
 </script>

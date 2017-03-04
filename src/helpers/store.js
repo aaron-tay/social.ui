@@ -86,6 +86,7 @@ function generateProfile({ profileId, name, bio, avatarUrl, isFollowed }) {
 // NOTE(ajt): We'll run out of memory by storing too many things but for
 // the purposes of a prototype, this is probably fine ;)
 function getProfileById(profileId) {
+  console.log('DEPRECATED - Migrating to VUEX', 'store.js:getProfileById', profileId);
   let profile = localState.people[profileId];
 
   // Does a 'lazy load'
