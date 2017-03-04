@@ -68,7 +68,7 @@
             </aside>
           </div>
           <div class="column">
-            <router-view></router-view>
+            <router-view :person="person"></router-view>
           </div>
         </div>
       </div>

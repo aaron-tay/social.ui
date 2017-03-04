@@ -31,14 +31,11 @@
 </template>
 
 <script>
-import store from '@/helpers/store';
-
 export default {
   name: 'profileCollections',
-  props: ['profileId'],
+  props: ['person'],
   data() {
     return {
-      people: store.people,
     };
   },
   created() {
@@ -46,7 +43,7 @@ export default {
   },
   computed: {
     collectionList() {
-      return this.people[this.profileId].collectionList;
+      return this.person.collectionList;
     },
   },
 };

@@ -40,7 +40,7 @@ import store from '@/helpers/store';
 
 export default {
   name: 'profileCollections',
-  props: ['profileId', 'peopleListType'],
+  props: ['peopleListType', 'person'],
   data() {
     return {
       people: store.people,
@@ -50,9 +50,6 @@ export default {
     // fetch data
   },
   computed: {
-    person() {
-      return this.people[this.profileId];
-    },
     personList() {
       return lodash.map(this.activePersonList, litePerson => (
         this.people[litePerson.profileId]

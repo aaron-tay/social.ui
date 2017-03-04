@@ -46,7 +46,7 @@
             </div>
             <!--  -->
             <div class="container">
-              <router-view></router-view>
+              <router-view :person="person"></router-view>
             </div>
           </div>
         </div>
