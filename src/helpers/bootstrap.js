@@ -2,10 +2,8 @@ import lodash from 'lodash';
 import Chance from 'chance';
 
 function imageUrl(width, height, category = '', stabilityHash = lodash.uniqueId('r')) {
-  const randomHash = `random=${stabilityHash}`;
   return [
-    `https://placehold.it/${width}x${height}`,
-    `http://loremflickr.com/${width}/${height}/${category}?${randomHash}`,
+    `https://placehold.it/${width}x${height}?text=${category}+${stabilityHash}`,
   ];
 }
 

@@ -13,7 +13,7 @@
           Developed using
           <a href="https://vuejs.org" target="_blank">vuejs</a>,
           <a href="http://bulma.io" target="_blank">bulma.io</a>,
-          <a href="http://loremflickr.com" target="_blank">loremflickr</a>,
+          <a href="http://placehod.it" target="_blank">placehold.it</a>,
           <a href="http://chancejs.com" target="_blank">chance</a>
         </p>
         <p>

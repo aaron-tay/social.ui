@@ -8,7 +8,7 @@ This project uses [VueJS](https://vuejs.org/) and [Bulma.io](http://bulma.io) as
 
 [Vuex](https://github.com/vuejs/vuex/) and [Vue-Router](https://github.com/vuejs/vue-router/) are used for local state management and client-side routing respectively.
 
-Data presented is completely randomised using [ChanceJS](http://chancejs.com), [LoremFlickr](http://loremflickr.com) and [Placehold.it](http://placehold.it/)
+Data presented is completely randomised using [ChanceJS](http://chancejs.com) and [Placehold.it](http://placehold.it/)
 
 
 ## Build Setup
