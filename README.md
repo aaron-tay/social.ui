@@ -1,10 +1,15 @@
 # social-ui
 
-> Basic UI for social network application
+> Basic UI application template for a hypothetical social network.
 
 ## Overview
 
-This project uses [VueJS](https://vuejs.org/) and [Bulma.io](http://bulma.io) to create some basic UI templates for a typical social network application. Nothing too fancy with most data mocked.
+This project uses [VueJS](https://vuejs.org/) and [Bulma.io](http://bulma.io) as its core.
+
+[Vuex](https://github.com/vuejs/vuex/) and [Vue-Router](https://github.com/vuejs/vue-router/) are used for local state management and client-side routing respectively.
+
+Data presented is completely randomised using [ChanceJS](http://chancejs.com), [LoremFlickr](http://loremflickr.com) and [Placehold.it](http://placehold.it/)
+
 
 ## Build Setup
 
