@@ -39,11 +39,13 @@
                 </p>
                 <hr />
                 <p class="control">
-                  <button class="button is-medium is-primary is-fullwidth">Create account</button>
+                  <router-link tag="button" :to="{ name: 'profile', params: { profileId: 'me' } }" class="button is-medium is-primary is-fullwidth">
+                    Create account
+                  </router-link>
                 </p>
               </form>
               <div class="box has-text-centered">
-                <router-link :to="{ name: 'login' }" class="button is-info is-inverted is-fullwidth">
+                <router-link :to="{ name: 'login' }" class="button is-dark is-inverted is-fullwidth">
                   Have an account? Log in &gt;
                 </router-link>
               </div>
