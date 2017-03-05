@@ -1,12 +1,21 @@
 import lodash from 'lodash';
 import Chance from 'chance';
 
+function imageUrl(width, height, category = '', stabilityHash = lodash.uniqueId('r')) {
+  const randomHash = `random=${stabilityHash}`;
+  return [
+    `https://placehold.it/${width}x${height}`,
+    `http://lorempixel.com/${width}/${height}/${category}?${randomHash}`,
+    `http://loremflickr.com/${width}/${height}/${category}?${randomHash}`,
+  ];
+}
+
 function generateProfile({ profileId, chance }) {
   const profile = {
     profileId,
     name: chance.name(),
     bio: chance.paragraph(),
-    avatarUrl: 'https://placehold.it/256x256',
+    avatarUrl: chance.pickone(imageUrl(256, 256, 'people', profileId)),
   };
 
   return profile;
@@ -44,24 +53,48 @@ function generateSocialNetwork({ numberOfPeople = 20, seed = 5330 } = {}) {
   });
   const relationships = lodash.keyBy(listRelationships, 'profileId');
 
-  const listOfStats = lodash.map(profileIdPool, (profileId) => {
-    // const profile = profiles[profileId];
-    const relationship = relationships[profileId];
-    return {
-      profileId,
-      followee: lodash.size(relationship.followeeIds),
-      follower: 0,
-    };
-  });
-  const stats = lodash.keyBy(listOfStats, 'profileId');
-
   return {
+    profileIds: profileIdPool,
     profiles,
     relationships,
-    stats,
+  };
+}
+
+function generateItem({ chance }) {
+  const itemId = chance.hash({ length: 12 });
+  const item = {
+    itemId,
+    type: 'image',
+    content: chance.pickone(imageUrl(256, 256, '', itemId)),
+    caption: chance.paragraph(),
+  };
+
+  return item;
+}
+
+function generateCuratedContent({ profileIds, seed = 5330 } = {}) {
+  const chance = new Chance(seed);
+
+  const listContent = lodash.map(profileIds, (profileId) => {
+    const numberOfItems = chance.natural({ max: 10 });
+    // const numberOfCollections = chance.natural({ max: numberOfItems / 2 });
+
+    const items = lodash.times(numberOfItems, () => generateItem({ chance }));
+
+    const content = {
+      profileId,
+      items,
+    };
+    return content;
+  });
+  const contents = lodash.keyBy(listContent, 'profileId');
+
+  return {
+    contents,
   };
 }
 
 export default {
   generateSocialNetwork,
+  generateCuratedContent,
 };

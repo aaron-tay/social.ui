@@ -3,6 +3,9 @@ import bootstrap from '@/helpers/bootstrap';
 
 // TODO(ajt): This is our 'fake' API which is backed by random bootstrapped data
 const bsSocialNetwork = bootstrap.generateSocialNetwork();
+const bsCuratedContent = bootstrap.generateCuratedContent({
+  profileIds: bsSocialNetwork.profileIds,
+});
 const meUserId = lodash.sample(bsSocialNetwork.profiles).profileId;
 console.log('api:meUserId', meUserId);
 
@@ -44,7 +47,7 @@ function getUserById(iUserId) {
   const userId = realUserId(iUserId);
   const user = bsSocialNetwork.profiles[userId];
   const stats = {
-    item: 0,
+    item: lodash.size(bsCuratedContent.contents[userId].items),
     collection: 0,
     followee: lodash.size(userIdsFollowingThisUser(userId)),
     follower: lodash.size(userIdsFollowedByThisUser(userId)),
@@ -105,6 +108,13 @@ function unfollowUser(iUserId) {
   return envelope(result);
 }
 
+function getContentByUserId(iUserId) {
+  const userId = realUserId(iUserId);
+  const items = bsCuratedContent.contents[userId].items;
+  const result = items;
+  return envelope(result);
+}
+
 // turns a function into one which returns a promise.resolve
 function promiseApi(fn) {
   return (args => Promise.resolve(fn(args)));
@@ -116,4 +126,5 @@ export default {
   getFollowersList: promiseApi(getFollowersList),
   followUser: promiseApi(followUser),
   unfollowUser: promiseApi(unfollowUser),
+  getContentByUserId: promiseApi(getContentByUserId),
 };
