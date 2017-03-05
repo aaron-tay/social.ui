@@ -100,7 +100,7 @@ export default {
     this.fetchItems();
   },
   watch: {
-    peopleListType(current, previous) {
+    person(current, previous) {
       if (current !== previous) {
         this.fetchItems();
       }

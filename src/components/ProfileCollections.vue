@@ -10,13 +10,13 @@
               </p>
             </figure>
             <div class="media-content">
-              <div class="content">
+              <div class="content max-lines-one-plus-three">
                 <p>
-                  <strong>{{ collection.name }}</strong>
+                  <strong>{{ collection.name }}</strong> <small>({{ collection.counts.items }} items)</small>
                   <br />
-                  {{ collection.snippet }}
+                  {{ collection.description }}
                   <br />
-                  {{ collection.stats.count }} items
+
                 </p>
               </div>
             </div>
@@ -31,6 +31,8 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
+
 export default {
   name: 'profileCollections',
   props: ['person'],
@@ -38,12 +40,29 @@ export default {
     return {
     };
   },
-  created() {
-    // fetch data
-  },
   computed: {
-    collectionList() {
-      return this.person.collectionList;
+    ...mapGetters({
+      collectionList: 'collections',
+    }),
+  },
+  methods: {
+    ...mapActions([
+      'fetchCollectionsByUserId',
+    ]),
+    fetchData() {
+      this.fetchCollectionsByUserId({
+        profileId: this.person.profileId,
+      });
+    },
+  },
+  created() {
+    this.fetchData();
+  },
+  watch: {
+    person(current, previous) {
+      if (current !== previous) {
+        this.fetchData();
+      }
     },
   },
 };

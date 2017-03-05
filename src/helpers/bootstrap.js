@@ -69,18 +69,39 @@ function generateItem({ chance }) {
   return item;
 }
 
+function generateCollection({ itemIds, chance }) {
+  const collectionId = chance.hash({ length: 12 });
+  const collection = {
+    collectionId,
+    name: chance.word(),
+    description: chance.paragraph({ sentences: 3 }),
+    itemIds,
+  };
+
+  return collection;
+}
+
 function generateCuratedContent({ profileIds, seed = 5330 } = {}) {
   const chance = new Chance(seed);
 
   const listContent = lodash.map(profileIds, (profileId) => {
-    const numberOfItems = chance.natural({ max: 10 });
-    // const numberOfCollections = chance.natural({ max: numberOfItems / 2 });
+    const numberOfItems = chance.natural({ max: 30 });
+    const numberOfCollections = chance.natural({ max: numberOfItems / 2 });
 
     const items = lodash.times(numberOfItems, () => generateItem({ chance }));
+    const collections = lodash.times(numberOfCollections, () => {
+      const itemsForCollection = chance.pickset(items, chance.natural({ max: numberOfItems }));
+      const itemIds = lodash.map(itemsForCollection, 'itemId');
+      return generateCollection({
+        itemIds,
+        chance,
+      });
+    });
 
     const content = {
       profileId,
       items,
+      collections,
     };
     return content;
   });

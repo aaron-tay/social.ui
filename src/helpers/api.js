@@ -48,7 +48,7 @@ function getUserById(iUserId) {
   const user = bsSocialNetwork.profiles[userId];
   const stats = {
     item: lodash.size(bsCuratedContent.contents[userId].items),
-    collection: 0,
+    collection: lodash.size(bsCuratedContent.contents[userId].collections),
     followee: lodash.size(userIdsFollowingThisUser(userId)),
     follower: lodash.size(userIdsFollowedByThisUser(userId)),
   };
@@ -115,6 +115,25 @@ function getContentByUserId(iUserId) {
   return envelope(result);
 }
 
+function getCollectionsByUserId(iUserId) {
+  const userId = realUserId(iUserId);
+  const items = bsCuratedContent.contents[userId].items;
+  const itemMap = lodash.keyBy(items, 'itemId');
+  const collections = bsCuratedContent.contents[userId].collections;
+  // let's normalise the entire collection
+  const result = lodash.map(collections, (collection) => {
+    const normalisedItems = lodash.map(collection.itemIds, itemId => itemMap[itemId]);
+    return {
+      ...lodash.omit(collection, 'itemIds'),
+      counts: {
+        items: lodash.size(normalisedItems),
+      },
+      items: normalisedItems,
+    };
+  });
+  return envelope(result);
+}
+
 // turns a function into one which returns a promise.resolve
 function promiseApi(fn) {
   return (args => Promise.resolve(fn(args)));
@@ -127,4 +146,5 @@ export default {
   followUser: promiseApi(followUser),
   unfollowUser: promiseApi(unfollowUser),
   getContentByUserId: promiseApi(getContentByUserId),
+  getCollectionsByUserId: promiseApi(getCollectionsByUserId),
 };
