@@ -4,3 +4,10 @@
 html {
   background-color: #efefef;
 }
+
+// Currently restricted to media-content but could be adapted later for more broader usage
+.media-content .content.max-lines--one-plus-three {
+  // 6em is based on the default line-height of 1.5em
+  max-height: 6em;
+  overflow: hidden;
+}

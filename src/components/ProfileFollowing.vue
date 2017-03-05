@@ -10,7 +10,7 @@
               </p>
             </figure>
             <div class="media-content">
-              <div class="content">
+              <div class="content max-lines--one-plus-three">
                 <p>
                   <router-link :to="{ name: 'profile', params: { profileId: person.profileId }}">
                     <strong>{{ person.name }}</strong>
