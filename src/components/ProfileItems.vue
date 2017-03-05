@@ -1,10 +1,10 @@
 <template>
   <div class="profile-items">
     <div class="columns is-multiline is-mobile">
-      <template v-for="i in 12">
+      <template v-for="item in itemList">
         <div class="column is-one-third">
           <div class="image is-1by1">
-            <img src="https://placehold.it/256x256" @click="openModal(i)"/>
+            <img :src="item.content" @click="openModal(item)"/>
           </div>
         </div>
       </template>
@@ -16,19 +16,23 @@
           <div class="columns">
             <div class="column">
               <div class="image is-1by1">
-                <img src="https://placehold.it/256x256" />
+                <img :src="modalData.content" />
               </div>
             </div>
             <div class="column">
               <h1 class="title">
-                An image
+                Some {{ modalData.type }}
               </h1>
               <h2 class="subtitle">
-                The exhibit on the left shows an image
+                <small>
+                  Curator: {{ modalData.owner.name }}
+                  <br />
+                  ImageId: {{ modalData.itemId }}
+                </small>
               </h2>
               <p>
                 <small>
-                  Image by magical-user-{{ modalData }}
+                  {{ modalData.caption }}
                 </small>
               </p>
             </div>
@@ -41,29 +45,65 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
+
 export default {
   name: 'profileItems',
+  props: ['person'],
   data() {
     return {
       isModalVisible: false,
-      modalData: null,
+      selectedItem: null,
     };
   },
   computed: {
+    ...mapGetters([
+      'items',
+      'itemOwner',
+    ]),
     modalClass() {
       return {
         'is-active': this.isModalVisible,
       };
     },
+    itemList() {
+      return this.items;
+    },
+    modalData() {
+      const selectedItem = this.selectedItem || {};
+      const user = this.itemOwner || {};
+      return {
+        ...selectedItem,
+        owner: user,
+      };
+    },
   },
   methods: {
-    openModal(i) {
-      this.modalData = i;
+    ...mapActions([
+      'fetchContentByUserId',
+    ]),
+    openModal(item) {
+      this.selectedItem = item;
       this.isModalVisible = true;
     },
     closeModal() {
       this.isModalVisible = false;
-      this.modalData = null;
+      this.selectedItem = null;
+    },
+    fetchItems() {
+      this.fetchContentByUserId({
+        profileId: this.person.profileId,
+      });
+    },
+  },
+  created() {
+    this.fetchItems();
+  },
+  watch: {
+    peopleListType(current, previous) {
+      if (current !== previous) {
+        this.fetchItems();
+      }
     },
   },
 };

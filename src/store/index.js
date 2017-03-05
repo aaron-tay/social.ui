@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import content from './modules/content';
 import users from './modules/users';
 import ui from './modules/ui';
 
@@ -14,6 +15,7 @@ export default new Vuex.Store({
     routeParams: (state, allGetters, rootState) => rootState.route.params,
   },
   modules: {
+    content,
     users,
     ui,
   },
