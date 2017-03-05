@@ -79,7 +79,7 @@
 </template>
 
 <script>
-import store from '@/helpers/store';
+import { mapGetters } from 'vuex';
 import SuiHeader from './Header';
 import SuiFooter from './Footer';
 import ProfileHeaderHero from './profile/Header--hero';
@@ -96,13 +96,12 @@ export default {
   },
   data() {
     return {
-      people: store.people,
     };
   },
   computed: {
-    person() {
-      return this.people[this.profileId];
-    },
+    ...mapGetters({
+      person: 'activeUser',
+    }),
   },
 };
 </script>

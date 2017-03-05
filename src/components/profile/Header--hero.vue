@@ -14,9 +14,11 @@
           <span class="title is-bold">
             {{ person.name }}
           </span>
-          &nbsp;
-          <button class="button is-primary is-outlined" v-if="person.isFollowed" @click="toggleFollowing(person)">following</button>
-          <button class="button is-primary" v-else @click="toggleFollowing(person)">follow</button>
+          <template v-if="!person.isMe">
+            &nbsp;
+            <button class="button is-primary is-outlined" v-if="person.isFollowed" @click="unfollowPerson(person)">following</button>
+            <button class="button is-primary" v-else @click="followPerson(person)">follow</button>
+          </template>
         </p>
         <p>
           <span class="subtitle">
@@ -29,7 +31,7 @@
 </template>
 
 <script>
-import store from '@/helpers/store';
+import { mapActions } from 'vuex';
 
 export default {
   props: {
@@ -40,8 +42,19 @@ export default {
     };
   },
   methods: {
-    toggleFollowing(person) {
-      store.toggleFollowState(person.profileId);
+    ...mapActions([
+      'followUser',
+      'unfollowUser',
+    ]),
+    followPerson(person) {
+      this.followUser({
+        profileId: person.profileId,
+      });
+    },
+    unfollowPerson(person) {
+      this.unfollowUser({
+        profileId: person.profileId,
+      });
     },
   },
 };

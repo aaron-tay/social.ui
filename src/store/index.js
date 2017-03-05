@@ -11,6 +11,7 @@ export default new Vuex.Store({
   // actions,
   getters: {
     routeQueryParams: (state, allGetters, rootState) => rootState.route.query,
+    routeParams: (state, allGetters, rootState) => rootState.route.params,
   },
   modules: {
     users,

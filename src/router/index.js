@@ -6,7 +6,8 @@ import Register from '@/components/Register';
 import Profile from '@/components/Profile';
 import ProfileItems from '@/components/ProfileItems';
 import ProfileCollections from '@/components/ProfileCollections';
-import ProfilePeople from '@/components/ProfilePeople';
+import ProfileFollowing from '@/components/ProfileFollowing';
+import ProfileFollowers from '@/components/ProfileFollowers';
 
 Vue.use(Router);
 
@@ -32,20 +33,14 @@ export default new Router({
         {
           path: 'e',
           name: 'profile/following',
-          component: ProfilePeople,
-          props: route => ({
-            profileId: route.params.profileId,
-            peopleListType: 'following',
-          }),
+          component: ProfileFollowing,
+          props: true,
         },
         {
           path: 'r',
           name: 'profile/followers',
-          component: ProfilePeople,
-          props: route => ({
-            profileId: route.params.profileId,
-            peopleListType: 'followers',
-          }),
+          component: ProfileFollowers,
+          props: true,
         },
         {
           // This is the default child

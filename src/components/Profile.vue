@@ -1,14 +1,13 @@
 <template>
   <div>
     <keep-alive>
-      <component :is="activeComponent" :profileId="profileId"></component>
+      <component :is="activeComponent" :profileId="profileId" v-if="!isLoading"></component>
     </keep-alive>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import store from '@/helpers/store';
 import ProfileTopDown from '@/components/ProfileLayout--TopDown';
 import ProfileNarrowWide from '@/components/ProfileLayout--NarrowWide';
 import ProfileHeroSidebar from '@/components/ProfileLayout--HeroSidebar';
@@ -26,8 +25,10 @@ export default {
   },
   computed: {
     ...mapGetters([
+      'routeParams',
       'routeQueryParams',
       'profileLayoutStyle',
+      'isLoading',
     ]),
     activeComponent() {
       return this.profileLayoutStyle;
@@ -36,6 +37,8 @@ export default {
   methods: {
     ...mapActions([
       'setProfileLayoutStyle',
+      'fetchUserById',
+      'setActiveUserId',
     ]),
     maybeUpdateProfileLayoutStyle() {
       if (this.routeQueryParams && this.routeQueryParams.layout) {
@@ -43,22 +46,29 @@ export default {
         this.setProfileLayoutStyle({ layoutStyle });
       }
     },
+    fetchProfile(profileId) {
+      this.fetchUserById({
+        profileId,
+      });
+      this.setActiveUserId({
+        profileId,
+      });
+    },
   },
   created() {
     this.maybeUpdateProfileLayoutStyle();
+    this.fetchProfile('me');
+    this.fetchProfile(this.routeParams.profileId);
   },
   watch: {
     routeQueryParams() {
       this.maybeUpdateProfileLayoutStyle();
     },
-  },
-  beforeRouteEnter(to, from, next) {
-    store.getProfileById(to.params.profileId);
-    next();
-  },
-  beforeRouteUpdate(to, from, next) {
-    store.getProfileById(to.params.profileId);
-    next();
+    routeParams(current, previous) {
+      if (current.profileId !== previous.profileId) {
+        this.fetchProfile(current.profileId);
+      }
+    },
   },
 };
 </script>
