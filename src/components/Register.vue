@@ -1,6 +1,17 @@
 <template>
   <div class="account-register">
     <section class="hero is-light is-fullheight">
+      <div class="hero-head">
+        <header class="nav">
+          <div class="container is-fluid">
+            <div class="nav-left">
+              <router-link :to="{ name: 'home' }" class="nav-item">
+                <img src="https://placehold.it/64x64" alt="social-ui"/>&nbsp;social-ui
+              </router-link>
+            </div>
+          </div>
+        </header>
+      </div>
       <div class="hero-body">
         <div class="container is-fluid">
           <div class="columns">
