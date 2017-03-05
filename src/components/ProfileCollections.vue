@@ -10,7 +10,7 @@
               </p>
             </figure>
             <div class="media-content">
-              <div class="content max-lines-one-plus-three">
+              <div class="content max-lines--one-plus-three">
                 <p>
                   <strong>{{ collection.name }}</strong> <small>({{ collection.counts.items }} items)</small>
                   <br />
