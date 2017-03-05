@@ -5,7 +5,6 @@ function imageUrl(width, height, category = '', stabilityHash = lodash.uniqueId(
   const randomHash = `random=${stabilityHash}`;
   return [
     `https://placehold.it/${width}x${height}`,
-    `http://lorempixel.com/${width}/${height}/${category}?${randomHash}`,
     `http://loremflickr.com/${width}/${height}/${category}?${randomHash}`,
   ];
 }

@@ -2,7 +2,7 @@
   "name": "social-ui",
   "version": "1.0.0",
   "description": "Basic UI for social network application",
-  "author": "Aaron Tay <psycokenisis@gmail.com>",
+  "author": "Aaron Tay <aaron-tay@users.noreply.github.com>",
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
