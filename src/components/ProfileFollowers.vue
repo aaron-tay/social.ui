@@ -24,7 +24,7 @@
             </div>
             <div class="media-right">
               <br />
-              <button class="button is-primary is-outlined" v-if="person.isFollowed" @click="unfollowPerson(person)">following</button>
+              <button class="button is-outlined" v-if="person.isFollowed" @click="unfollowPerson(person)">following</button>
               <button class="button is-primary" v-else @click="followPerson(person)">follow</button>
             </div>
           </article>

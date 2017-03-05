@@ -12,7 +12,7 @@
           {{ person.name }}
         </h1>
         <p v-if="!person.isMe">
-          <button class="button is-primary is-outlined is-fullwidth" v-if="person.isFollowed" @click="unfollowPerson(person)">following</button>
+          <button class="button is-outlined is-fullwidth" v-if="person.isFollowed" @click="unfollowPerson(person)">following</button>
           <button class="button is-primary is-fullwidth" v-else @click="followPerson(person)">follow</button>
         </p>
       </div>

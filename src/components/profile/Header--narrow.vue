@@ -18,7 +18,7 @@
           </span>
         </p>
         <p v-if="!person.isMe">
-          <button class="button is-primary is-medium is-fullwidth is-outlined" v-if="person.isFollowed" @click="unfollowPerson(person)">following</button>
+          <button class="button is-medium is-fullwidth is-outlined" v-if="person.isFollowed" @click="unfollowPerson(person)">following</button>
           <button class="button is-primary is-medium is-fullwidth" v-else @click="followPerson(person)">follow</button>
         </p>
         <p>

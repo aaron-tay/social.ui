@@ -16,7 +16,7 @@
           </span>
           <template v-if="!person.isMe">
             &nbsp;
-            <button class="button is-primary is-outlined" v-if="person.isFollowed" @click="unfollowPerson(person)">following</button>
+            <button class="button is-dark is-inverted is-outlined" v-if="person.isFollowed" @click="unfollowPerson(person)">following</button>
             <button class="button is-primary" v-else @click="followPerson(person)">follow</button>
           </template>
         </p>
