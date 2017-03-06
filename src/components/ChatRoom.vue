@@ -23,7 +23,7 @@
             </div>
             <div class="nav-right">
               <div class="nav-item is-pulled-right">
-                <button class="button is-white">
+                <button class="button is-white" @click="openModal()">
                   <span class="icon">
                     <i class="fa fa-question-circle"></i>
                   </span>
@@ -96,6 +96,30 @@
         </nav>
       </div>
     </section>
+
+    <div class="modal" :class="modalClass">
+      <div class="modal-background" @click="closeModal()"></div>
+      <div class="modal-content">
+        <div class="box">
+          <div class="columns">
+            <div class="column">
+              <h3 class="title is-5">
+                Participants
+              </h3>
+              <p>
+                <template v-for="person in participants">
+                  <span class="image is-32x32 sui-avatar sui-avatar--flow">
+                    <img :src="person.avatarUrl">
+                  </span>
+                </template>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="modal-close" @click="closeModal()"></button>
+    </div>
+    <!-- <sui-footer class="is-hidden-mobile"></sui-footer> -->
   </div>
 </template>
 
@@ -113,10 +137,16 @@ export default {
   data() {
     return {
       inputMessage: '',
+      isModalVisible: false,
       chatMessages: this.stubBootstrapChatMessages(),
     };
   },
   computed: {
+    modalClass() {
+      return {
+        'is-active': this.isModalVisible,
+      };
+    },
     hasMessage() {
       return this.inputMessage;
     },
@@ -134,8 +164,17 @@ export default {
     messages() {
       return this.chatMessages;
     },
+    participants() {
+      return lodash.map(this.messages, 'person');
+    },
   },
   methods: {
+    openModal() {
+      this.isModalVisible = true;
+    },
+    closeModal() {
+      this.isModalVisible = false;
+    },
     sendMessage(message) {
       if (lodash.isEmpty(message)) { return; }
       this.inputMessage = '';
