@@ -1,8 +1,6 @@
 <template>
   <div>
-    <keep-alive>
-      <component :is="activeComponent" :profileId="profileId" v-if="!isLoading"></component>
-    </keep-alive>
+    <component :is="activeComponent" :profileId="profileId" v-if="!isLoading"></component>
   </div>
 </template>
 
