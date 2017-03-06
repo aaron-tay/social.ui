@@ -17,7 +17,7 @@
             <div class="nav-center">
               <div class="nav-item">
                 <p class="title">
-                  TITLE
+                  {{ chatroom.title }}
                 </p>
               </div>
             </div>
@@ -38,21 +38,21 @@
         <div class="container">
           <div class="columns">
             <div class="column">
-              <template v-for="i in 12">
+              <template v-for="message in messages">
                 <article class="media">
                   <figure class="media-left">
                     <p class="image is-64x64 sui-avatar">
-                      <img src="http://placehold.it/64x64">
+                      <img :src="message.person.avatarUrl">
                     </p>
                   </figure>
                   <div class="media-content">
                     <div class="content">
                       <p>
-                        <strong>NAME</strong>
-                        <small>@handle</small>
-                        <small>31m ago</small>
+                        <strong>{{ message.person.name }}</strong>
+                        <small>{{ message.person.handle }}</small>
+                        <small>{{ message.timestamp }}</small>
                         <br>
-                        this is content this is content this is content this is content
+                        {{ message.content }}
                       </p>
                     </div>
                   </div>
@@ -80,12 +80,12 @@
             </div>
             <div class="nav-center">
               <div class="nav-item control">
-                <textarea class="textarea" type="text" placeholder="Type a message"/>
+                <textarea class="textarea" type="text" placeholder="Type a message" v-model="inputMessage" @keyup.enter="sendMessage(inputMessage)"/>
               </div>
             </div>
             <div class="nav-right">
               <div class="nav-item control">
-                <button class="button is-medium">
+                <button class="button is-medium" :class="sendMessageClass" @click="sendMessage(inputMessage)">
                   <span class="icon is-small">
                     <i class="fa fa-send"></i>
                   </span>
@@ -100,19 +100,76 @@
 </template>
 
 <script>
+import lodash from 'lodash';
+import chance from '@/helpers/chance';
 import SuiHeader from './Header';
+import SuiFooter from './Footer';
 
 export default {
   components: {
     SuiHeader,
+    SuiFooter,
   },
   data() {
     return {
+      inputMessage: '',
+      chatMessages: this.stubBootstrapChatMessages(),
     };
   },
   computed: {
+    hasMessage() {
+      return this.inputMessage;
+    },
+    sendMessageClass() {
+      return {
+        'is-white': !this.hasMessage,
+        'is-primary': this.hasMessage,
+      };
+    },
+    chatroom() {
+      return {
+        title: chance.word(),
+      };
+    },
+    messages() {
+      return this.chatMessages;
+    },
   },
   methods: {
+    sendMessage(message) {
+      if (lodash.isEmpty(message)) { return; }
+      this.inputMessage = '';
+      const chatMessage = this.stubMakeChatMessage(message);
+      this.chatMessages.push(chatMessage);
+      this.scrollToBottomOfChatMessages();
+    },
+    stubPerson() {
+      const userId = chance.hash();
+      return {
+        profileId: userId,
+        name: chance.name(),
+        username: chance.word(),
+        avatarUrl: `http://placehold.it/64x64?text=person+${userId}`,
+      };
+    },
+    stubBootstrapChatMessages() {
+      const self = this;
+      return lodash.times(7, () => self.stubMakeChatMessage());
+    },
+    stubMakeChatMessage(message) {
+      const person = this.stubPerson();
+      return {
+        person,
+        timestamp: chance.timestamp(),
+        content: message || chance.paragraph(),
+      };
+    },
+    scrollToBottomOfChatMessages() {
+      // eslint-disable-next-line
+      this.$nextTick(() => {
+        document.getElementById('sui-messages-bottom').scrollIntoView();
+      });
+    },
   },
 };
 </script>
