@@ -8,6 +8,7 @@ import ProfileItems from '@/components/ProfileItems';
 import ProfileCollections from '@/components/ProfileCollections';
 import ProfileFollowing from '@/components/ProfileFollowing';
 import ProfileFollowers from '@/components/ProfileFollowers';
+import ChatRoom from '@/components/ChatRoom';
 
 Vue.use(Router);
 
@@ -51,6 +52,12 @@ export default new Router({
           },
         },
       ],
+    },
+    {
+      path: '/c/:chatId',
+      name: '/chatroom',
+      component: ChatRoom,
+      props: true,
     },
     {
       path: '/login',
