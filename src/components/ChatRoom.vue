@@ -17,7 +17,7 @@
             <div class="nav-center">
               <div class="nav-item">
                 <p class="title">
-                  {{ chatroom.title }}
+                  {{ chatRoom.title }}
                 </p>
               </div>
             </div>
@@ -38,7 +38,7 @@
         <div class="container">
           <div class="columns">
             <div class="column">
-              <template v-for="message in messages">
+              <template v-for="message in chatRoom.messages">
                 <article class="media">
                   <figure class="media-left">
                     <p class="image is-64x64 sui-avatar">
@@ -63,6 +63,7 @@
             </div>
           </div>
         </div>
+        <!-- Used to scroll the user to the bottom ;) -->
         <div id="sui-messages-bottom"></div>
       </div>
 
@@ -107,7 +108,7 @@
                 Participants
               </h3>
               <p>
-                <template v-for="person in participants">
+                <template v-for="person in chatRoom.participants">
                   <span class="image is-32x32 sui-avatar sui-avatar--flow">
                     <img :src="person.avatarUrl">
                   </span>
@@ -124,12 +125,13 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
 import lodash from 'lodash';
-import chance from '@/helpers/chance';
 import SuiHeader from './Header';
 import SuiFooter from './Footer';
 
 export default {
+  props: ['chatId'],
   components: {
     SuiHeader,
     SuiFooter,
@@ -138,10 +140,12 @@ export default {
     return {
       inputMessage: '',
       isModalVisible: false,
-      chatMessages: this.stubBootstrapChatMessages(),
     };
   },
   computed: {
+    ...mapGetters([
+      'chatRoom',
+    ]),
     modalClass() {
       return {
         'is-active': this.isModalVisible,
@@ -156,19 +160,12 @@ export default {
         'is-primary': this.hasMessage,
       };
     },
-    chatroom() {
-      return {
-        title: chance.word(),
-      };
-    },
-    messages() {
-      return this.chatMessages;
-    },
-    participants() {
-      return lodash.map(this.messages, 'person');
-    },
   },
   methods: {
+    ...mapActions([
+      'sendChatMessage',
+      'fetchChatRoomById',
+    ]),
     openModal() {
       this.isModalVisible = true;
     },
@@ -178,36 +175,29 @@ export default {
     sendMessage(message) {
       if (lodash.isEmpty(message)) { return; }
       this.inputMessage = '';
-      const chatMessage = this.stubMakeChatMessage(message);
-      this.chatMessages.push(chatMessage);
+      this.sendChatMessage({ message });
       this.scrollToBottomOfChatMessages();
-    },
-    stubPerson() {
-      const userId = chance.hash();
-      return {
-        profileId: userId,
-        name: chance.name(),
-        username: chance.word(),
-        avatarUrl: `http://placehold.it/64x64?text=person+${userId}`,
-      };
-    },
-    stubBootstrapChatMessages() {
-      const self = this;
-      return lodash.times(7, () => self.stubMakeChatMessage());
-    },
-    stubMakeChatMessage(message) {
-      const person = this.stubPerson();
-      return {
-        person,
-        timestamp: chance.timestamp(),
-        content: message || chance.paragraph(),
-      };
     },
     scrollToBottomOfChatMessages() {
       // eslint-disable-next-line
       this.$nextTick(() => {
         document.getElementById('sui-messages-bottom').scrollIntoView();
       });
+    },
+    fetchChatRoom() {
+      this.fetchChatRoomById({
+        chatId: this.chatId,
+      });
+    },
+  },
+  created() {
+    this.fetchChatRoom();
+  },
+  watch: {
+    chatId(current, previous) {
+      if (current !== previous) {
+        this.fetchChatRoom();
+      }
     },
   },
 };
