@@ -5,7 +5,7 @@
     <!-- input bar -->
     <!-- participants -->
     <!-- add media buttons -->
-    <section class="hero is-light sui-messages">
+    <section class="hero is-fullheight is-light sui-messages">
       <div class="hero-head">
         <nav class="nav has-shadow">
           <div class="container is-fluid">
@@ -50,7 +50,7 @@
                       <p>
                         <strong>{{ message.person.name }}</strong>
                         <small>{{ message.person.handle }}</small>
-                        <small>{{ message.timestamp }}</small>
+                        <small>{{ timeAgoFromTimestamp(message.timestamp) }}</small>
                         <br>
                         {{ message.content }}
                       </p>
@@ -60,11 +60,11 @@
                   </div>
                 </article>
               </template>
+              <!-- Used to scroll the user to the bottom ;) -->
+              <div id="sui-messages-bottom"></div>
             </div>
           </div>
         </div>
-        <!-- Used to scroll the user to the bottom ;) -->
-        <div id="sui-messages-bottom"></div>
       </div>
 
       <div class="hero-foot sui-chat-footer">
@@ -127,6 +127,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import lodash from 'lodash';
+import moment from 'moment';
 import SuiHeader from './Header';
 import SuiFooter from './Footer';
 
@@ -160,6 +161,10 @@ export default {
         'is-primary': this.hasMessage,
       };
     },
+    countMessages() {
+      if (!this.chatRoom) { return 0; }
+      return this.chatRoom.messages;
+    },
   },
   methods: {
     ...mapActions([
@@ -175,8 +180,11 @@ export default {
     sendMessage(message) {
       if (lodash.isEmpty(message)) { return; }
       this.inputMessage = '';
-      this.sendChatMessage({ message });
-      this.scrollToBottomOfChatMessages();
+      this.sendChatMessage({
+        chatId: this.chatRoom.chatId,
+        userId: 'me',
+        message,
+      });
     },
     scrollToBottomOfChatMessages() {
       // eslint-disable-next-line
@@ -189,6 +197,9 @@ export default {
         chatId: this.chatId,
       });
     },
+    timeAgoFromTimestamp(timestamp) {
+      return moment.unix(timestamp).fromNow();
+    },
   },
   created() {
     this.fetchChatRoom();
@@ -197,6 +208,11 @@ export default {
     chatId(current, previous) {
       if (current !== previous) {
         this.fetchChatRoom();
+      }
+    },
+    countMessages(current, previous) {
+      if (current !== previous) {
+        this.scrollToBottomOfChatMessages();
       }
     },
   },
@@ -223,10 +239,11 @@ export default {
 .sui-messages .hero-head {
 }
 
-.sui-messages .hero-body {
+.sui-messages.hero.is-fullheight .hero-body {
   max-height: 100vh;
   overflow: scroll;
   flex-shrink: 1;
+  align-items: initial;
 }
 
 .sui-messages .hero-foot {

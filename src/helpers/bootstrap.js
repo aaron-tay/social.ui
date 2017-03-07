@@ -1,4 +1,5 @@
 import lodash from 'lodash';
+import moment from 'moment';
 import Chance from 'chance';
 
 function imageUrl(width, height, category = '', stabilityHash = lodash.uniqueId('r')) {
@@ -112,7 +113,48 @@ function generateCuratedContent({ profileIds, seed = 5330 } = {}) {
   };
 }
 
+function generateChatMessage({ profileId, chance }) {
+  const messageId = chance.hash();
+  return {
+    messageId,
+    ownerProfileId: profileId,
+    timestamp: moment().unix(),
+    content: chance.paragraph(),
+  };
+}
+
+function generateChatRoom({ profileIds, chance }) {
+  const chatId = chance.hash({ length: 16 });
+  const numberOfMessages = chance.natural({ max: lodash.size(profileIds) * 2 });
+  return {
+    chatId,
+    title: chance.word(),
+    messages: lodash.times(numberOfMessages, () => {
+      const profileId = chance.pickone(profileIds);
+      return generateChatMessage({ profileId, chance });
+    }),
+    participants: profileIds,
+  };
+}
+
+function generateChats({ profileIds, seed = 5330 } = {}) {
+  const chance = new Chance(seed);
+
+  const numberOfChatRooms = chance.natural({ max: 10 });
+  const listChatRooms = lodash.times(numberOfChatRooms, () => {
+    const numberOfPeople = chance.natural({ max: lodash.size(profileIds) });
+    const participants = chance.pickset(profileIds, numberOfPeople);
+    return generateChatRoom({ profileIds: participants, chance });
+  });
+  const chatRooms = lodash.keyBy(listChatRooms, 'chatId');
+
+  return {
+    chatRooms,
+  };
+}
+
 export default {
   generateSocialNetwork,
   generateCuratedContent,
+  generateChats,
 };

@@ -1,4 +1,5 @@
 import lodash from 'lodash';
+import moment from 'moment';
 import bootstrap from '@/helpers/bootstrap';
 
 // TODO(ajt): This is our 'fake' API which is backed by random bootstrapped data
@@ -6,8 +7,11 @@ const bsSocialNetwork = bootstrap.generateSocialNetwork();
 const bsCuratedContent = bootstrap.generateCuratedContent({
   profileIds: bsSocialNetwork.profileIds,
 });
+const bsChats = bootstrap.generateChats({
+  profileIds: bsSocialNetwork.profileIds,
+});
 const meUserId = lodash.sample(bsSocialNetwork.profiles).profileId;
-console.log('api:meUserId', meUserId);
+console.log('api:meUserId', meUserId, bsSocialNetwork, bsCuratedContent, bsChats);
 
 function realUserId(meOrUserId) {
   const userId = (meOrUserId === 'me' ? meUserId : meOrUserId);
@@ -134,6 +138,37 @@ function getCollectionsByUserId(iUserId) {
   return envelope(result);
 }
 
+function normaliseChatMessage(chatMessage) {
+  return {
+    ...chatMessage,
+    person: getUserById(chatMessage.ownerProfileId).data,
+  };
+}
+
+function getChatRoomById(chatId) {
+  const chatRoom = bsChats.chatRooms[chatId];
+  // Normalise user data
+  const result = {
+    ...chatRoom,
+    messages: lodash.map(chatRoom.messages, message => normaliseChatMessage(message)),
+    participants: lodash.map(chatRoom.participants, userId => getUserById(userId).data),
+  };
+  return envelope(result);
+}
+
+function sendMessageToChatRoom({ chatId, userId, message }) {
+  const chatRoom = bsChats.chatRooms[chatId];
+  const chatMessage = {
+    messageId: lodash.uniqueId('cm'),
+    ownerProfileId: realUserId(userId),
+    timestamp: moment().unix(),
+    content: message,
+  };
+  chatRoom.messages.push(chatMessage);
+  const result = normaliseChatMessage(chatMessage);
+  return envelope(result);
+}
+
 // turns a function into one which returns a promise.resolve
 function promiseApi(fn) {
   return (args => Promise.resolve(fn(args)));
@@ -147,4 +182,6 @@ export default {
   unfollowUser: promiseApi(unfollowUser),
   getContentByUserId: promiseApi(getContentByUserId),
   getCollectionsByUserId: promiseApi(getCollectionsByUserId),
+  getChatRoomById: promiseApi(getChatRoomById),
+  sendMessageToChatRoom: promiseApi(sendMessageToChatRoom),
 };
