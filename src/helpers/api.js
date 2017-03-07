@@ -187,9 +187,17 @@ function sendMessageToChatRoom({ chatRoomId, userId, message }) {
   return envelope(result);
 }
 
-// turns a function into one which returns a promise.resolve
+// Turns a function into one which returns a promise.resolve. Also allows us to
+// simulate network request delays ;)
+const AJAX_SIMULATION_DELAY_MS = 0;
 function promiseApi(fn) {
-  return (args => Promise.resolve(fn(args)));
+  return args => (
+    new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(fn(args));
+      }, AJAX_SIMULATION_DELAY_MS);
+    })
+  );
 }
 
 export default {
