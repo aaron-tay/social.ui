@@ -3,7 +3,7 @@ import api from '@/helpers/api';
 
 const localState = {
   chatRoom: {
-    chatId: null,
+    chatRoomId: null,
     title: null,
     messages: [],
     participants: [],
@@ -30,8 +30,8 @@ const localActions = {
       });
     });
   },
-  fetchChatRoomById({ commit }, { chatId }) {
-    const response = api.getChatRoomById(chatId);
+  fetchChatRoomById({ commit }, { chatRoomId }) {
+    const response = api.getChatRoomById(chatRoomId);
     response.then(({ data }) => {
       const chatRoom = data;
       commit(USER_RETRIEVED_CHATROOM, {
@@ -39,9 +39,9 @@ const localActions = {
       });
     });
   },
-  sendChatMessage({ commit }, { chatId, userId, message }) {
+  sendChatMessage({ commit }, { chatRoomId, userId, message }) {
     const response = api.sendMessageToChatRoom({
-      chatId,
+      chatRoomId,
       userId,
       message,
     });

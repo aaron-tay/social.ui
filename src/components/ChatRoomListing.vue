@@ -16,7 +16,7 @@
                 <div class="media-content">
                   <div class="content max-lines--one-plus-three">
                     <p>
-                      <router-link :to="{ name: 'chatroom', params: { chatId: chatRoom.chatId } }">
+                      <router-link :to="{ name: 'chatroom', params: { chatRoomId: chatRoom.chatRoomId } }">
                         <strong>{{ chatRoom.title }}</strong>
                       </router-link>
                       <small>({{ chatRoom.counts.participants }} members)</small>

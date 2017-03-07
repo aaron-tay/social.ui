@@ -145,8 +145,8 @@ function normaliseChatMessage(chatMessage) {
   };
 }
 
-function getChatRoomById(chatId) {
-  const chatRoom = bsChats.chatRooms[chatId];
+function getChatRoomById(chatRoomId) {
+  const chatRoom = bsChats.chatRooms[chatRoomId];
   // Normalise user data
   const result = {
     ...chatRoom,
@@ -157,11 +157,11 @@ function getChatRoomById(chatId) {
 }
 
 function getChatRooms() {
-  const chatRoomList = lodash.map(bsChats.chatRooms, (rawChatRoom, chatId) => {
-    const chatRoom = getChatRoomById(chatId).data;
+  const chatRoomList = lodash.map(bsChats.chatRooms, (rawChatRoom, chatRoomId) => {
+    const chatRoom = getChatRoomById(chatRoomId).data;
     // Returns just enough info for a preview
     return {
-      chatId,
+      chatRoomId,
       title: chatRoom.title,
       counts: {
         messages: lodash.size(chatRoom.messages),
@@ -174,8 +174,8 @@ function getChatRooms() {
   return envelope(result);
 }
 
-function sendMessageToChatRoom({ chatId, userId, message }) {
-  const chatRoom = bsChats.chatRooms[chatId];
+function sendMessageToChatRoom({ chatRoomId, userId, message }) {
+  const chatRoom = bsChats.chatRooms[chatRoomId];
   const chatMessage = {
     messageId: lodash.uniqueId('cm'),
     ownerProfileId: realUserId(userId),

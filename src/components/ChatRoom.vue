@@ -142,7 +142,7 @@ import SuiHeader from './Header';
 import SuiFooter from './Footer';
 
 export default {
-  props: ['chatId'],
+  props: ['chatRoomId'],
   components: {
     SuiHeader,
     SuiFooter,
@@ -192,7 +192,7 @@ export default {
       if (lodash.isEmpty(message)) { return; }
       this.inputMessage = '';
       this.sendChatMessage({
-        chatId: this.chatRoom.chatId,
+        chatRoomId: this.chatRoom.chatRoomId,
         userId: 'me',
         message,
       });
@@ -205,7 +205,7 @@ export default {
     },
     fetchChatRoom() {
       this.fetchChatRoomById({
-        chatId: this.chatId,
+        chatRoomId: this.chatRoomId,
       });
       this.fetchUserById({
         profileId: 'me',
@@ -220,7 +220,7 @@ export default {
     this.fetchChatRoom();
   },
   watch: {
-    chatId(current, previous) {
+    chatRoomId(current, previous) {
       if (current !== previous) {
         this.fetchChatRoom();
       }

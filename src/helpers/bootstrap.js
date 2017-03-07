@@ -124,10 +124,10 @@ function generateChatMessage({ profileId, chance }) {
 }
 
 function generateChatRoom({ profileIds, chance }) {
-  const chatId = chance.hash({ length: 16 });
+  const chatRoomId = chance.hash({ length: 16 });
   const numberOfMessages = chance.natural({ max: lodash.size(profileIds) * 2 });
   return {
-    chatId,
+    chatRoomId,
     title: chance.word(),
     messages: lodash.times(numberOfMessages, () => {
       const profileId = chance.pickone(profileIds);
@@ -146,7 +146,7 @@ function generateChats({ profileIds, seed = 5330 } = {}) {
     const participants = chance.pickset(profileIds, numberOfPeople);
     return generateChatRoom({ profileIds: participants, chance });
   });
-  const chatRooms = lodash.keyBy(listChatRooms, 'chatId');
+  const chatRooms = lodash.keyBy(listChatRooms, 'chatRoomId');
 
   return {
     chatRooms,

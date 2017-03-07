@@ -63,7 +63,7 @@ export default new Router({
       props: true,
     },
     {
-      path: '/c/:chatId',
+      path: '/c/:chatRoomId',
       name: 'chatroom',
       component: ChatRoom,
       props: true,
