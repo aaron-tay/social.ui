@@ -9,10 +9,12 @@ import ProfileCollections from '@/components/ProfileCollections';
 import ProfileFollowing from '@/components/ProfileFollowing';
 import ProfileFollowers from '@/components/ProfileFollowers';
 import ChatRoom from '@/components/ChatRoom';
+import ChatRoomListing from '@/components/ChatRoomListing';
 
 Vue.use(Router);
 
 export default new Router({
+  base: '/social-ui/',
   routes: [
     {
       path: '/u/:profileId',
@@ -53,9 +55,16 @@ export default new Router({
         },
       ],
     },
+    // TODO(ajt): Might be better to nest the chat routes
+    {
+      path: '/c',
+      name: 'chatroomListing',
+      component: ChatRoomListing,
+      props: true,
+    },
     {
       path: '/c/:chatId',
-      name: '/chatroom',
+      name: 'chatroom',
       component: ChatRoom,
       props: true,
     },

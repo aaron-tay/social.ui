@@ -1,10 +1,6 @@
 <template>
   <div class="chatroom">
 
-    <!-- messages -->
-    <!-- input bar -->
-    <!-- participants -->
-    <!-- add media buttons -->
     <section class="hero is-fullheight is-light sui-messages">
       <div class="hero-head">
         <nav class="nav has-shadow">
@@ -36,17 +32,24 @@
 
       <div class="hero-body">
         <div class="container">
-          <div class="columns">
+          <div class="columns" v-if="countMessages === 0">
+            <div class="column">
+              <div class="box has-text-centered">
+                No messages
+              </div>
+            </div>
+          </div>
+          <div class="columns" v-else>
             <div class="column">
               <template v-for="message in chatRoom.messages">
                 <article class="media">
                   <figure class="media-left">
-                    <p class="image is-64x64 sui-avatar">
+                    <p class="image is-64x64 sui-avatar" v-if="!message.person.isMe">
                       <img :src="message.person.avatarUrl">
                     </p>
                   </figure>
                   <div class="media-content">
-                    <div class="content">
+                    <div class="content box">
                       <p>
                         <strong>{{ message.person.name }}</strong>
                         <small>{{ message.person.handle }}</small>
@@ -57,10 +60,17 @@
                     </div>
                   </div>
                   <div class="media-right">
+                    <p class="image is-64x64 sui-avatar" v-if="message.person.isMe">
+                      <img :src="message.person.avatarUrl">
+                    </p>
                   </div>
                 </article>
               </template>
               <!-- Used to scroll the user to the bottom ;) -->
+            </div>
+          </div>
+          <div class="columns">
+            <div class="column">
               <div id="sui-messages-bottom"></div>
             </div>
           </div>
@@ -163,13 +173,14 @@ export default {
     },
     countMessages() {
       if (!this.chatRoom) { return 0; }
-      return this.chatRoom.messages;
+      return lodash.size(this.chatRoom.messages);
     },
   },
   methods: {
     ...mapActions([
       'sendChatMessage',
       'fetchChatRoomById',
+      'fetchUserById',
     ]),
     openModal() {
       this.isModalVisible = true;
@@ -196,6 +207,10 @@ export default {
       this.fetchChatRoomById({
         chatId: this.chatId,
       });
+      this.fetchUserById({
+        profileId: 'me',
+      });
+      this.scrollToBottomOfChatMessages();
     },
     timeAgoFromTimestamp(timestamp) {
       return moment.unix(timestamp).fromNow();

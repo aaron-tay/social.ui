@@ -1,36 +1,38 @@
 <template>
   <div class="home">
     <nav class="nav has-shadow">
-      <div class="nav-left">
-        <a class="nav-item">
-          social-ui
-        </a>
-      </div>
+      <div class="container is-fluid">
+        <div class="nav-left">
+          <a class="nav-item">
+            social-ui
+          </a>
+        </div>
 
-      <div class="nav-center is-hidden-tablet">
-        <span class="nav-item">
-          <router-link :to="{ name: 'login' }" class="button is-primary is-outlined">
-            <span>Login</span>
-          </router-link>
-        </span>
-        <span class="nav-item">
-          <router-link :to="{ name: 'register' }" class="button is-primary">
-            <span>Register</span>
-          </router-link>
-        </span>
-      </div>
+        <div class="nav-center is-hidden-tablet">
+          <span class="nav-item">
+            <router-link :to="{ name: 'login' }" class="button is-primary is-outlined">
+              <span>Login</span>
+            </router-link>
+          </span>
+          <span class="nav-item">
+            <router-link :to="{ name: 'register' }" class="button is-primary">
+              <span>Register</span>
+            </router-link>
+          </span>
+        </div>
 
-      <div class="nav-right is-hidden-mobile">
-        <span class="nav-item">
-          <router-link :to="{ name: 'login' }" class="button is-primary is-outlined">
-            <span>Login</span>
-          </router-link>
-        </span>
-        <span class="nav-item">
-          <router-link :to="{ name: 'register' }" class="button is-primary">
-            <span>Register</span>
-          </router-link>
-        </span>
+        <div class="nav-right is-hidden-mobile">
+          <span class="nav-item">
+            <router-link :to="{ name: 'login' }" class="button is-primary is-outlined">
+              <span>Login</span>
+            </router-link>
+          </span>
+          <span class="nav-item">
+            <router-link :to="{ name: 'register' }" class="button is-primary">
+              <span>Register</span>
+            </router-link>
+          </span>
+        </div>
       </div>
     </nav>
 

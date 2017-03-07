@@ -156,6 +156,24 @@ function getChatRoomById(chatId) {
   return envelope(result);
 }
 
+function getChatRooms() {
+  const chatRoomList = lodash.map(bsChats.chatRooms, (rawChatRoom, chatId) => {
+    const chatRoom = getChatRoomById(chatId).data;
+    // Returns just enough info for a preview
+    return {
+      chatId,
+      title: chatRoom.title,
+      counts: {
+        messages: lodash.size(chatRoom.messages),
+        participants: lodash.size(chatRoom.participants),
+      },
+      preview: lodash.last(chatRoom.messages),
+    };
+  });
+  const result = chatRoomList;
+  return envelope(result);
+}
+
 function sendMessageToChatRoom({ chatId, userId, message }) {
   const chatRoom = bsChats.chatRooms[chatId];
   const chatMessage = {
@@ -182,6 +200,7 @@ export default {
   unfollowUser: promiseApi(unfollowUser),
   getContentByUserId: promiseApi(getContentByUserId),
   getCollectionsByUserId: promiseApi(getCollectionsByUserId),
+  getChatRooms: promiseApi(getChatRooms),
   getChatRoomById: promiseApi(getChatRoomById),
   sendMessageToChatRoom: promiseApi(sendMessageToChatRoom),
 };
