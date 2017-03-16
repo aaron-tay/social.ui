@@ -1,6 +1,6 @@
 <template>
   <nav class="nav has-shadow">
-    <div class="container is-fluid">
+    <div class="container">
       <div class="nav-left">
         <router-link :to="{ name: 'home' }" class="nav-item">
           <img src="https://placehold.it/64x64" alt="social-ui"/>&nbsp;social-ui

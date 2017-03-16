@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <nav class="nav has-shadow">
-      <div class="container is-fluid">
+      <div class="container">
         <div class="nav-left">
           <a class="nav-item">
             social-ui
