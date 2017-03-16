@@ -10,6 +10,7 @@ import ProfileFollowing from '@/components/ProfileFollowing';
 import ProfileFollowers from '@/components/ProfileFollowers';
 import ChatRoom from '@/components/ChatRoom';
 import ChatRoomListing from '@/components/ChatRoomListing';
+import Contribute from '@/components/Contribute';
 
 Vue.use(Router);
 
@@ -54,6 +55,11 @@ export default new Router({
           },
         },
       ],
+    },
+    {
+      path: '/a',
+      component: Contribute,
+      props: true,
     },
     // TODO(ajt): Might be better to nest the chat routes
     {
