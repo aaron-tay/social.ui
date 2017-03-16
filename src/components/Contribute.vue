@@ -10,7 +10,7 @@
 
         <div class="nav-right">
           <div class="nav-item">
-            <a class="button is-primary">
+            <a class="button is-primary" @click="contributeContent">
               POST
             </a>
           </div>
@@ -126,7 +126,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import chance from '@/helpers/chance';
 import SuiHeader from './Header';
 import SuiFooter from './Footer';
@@ -183,6 +183,8 @@ export default {
     },
   },
   methods: {
+    ...mapActions([
+    ]),
     addHashTag() {
       this.caption += ' #';
       this.$refs.caption.focus();
@@ -213,6 +215,14 @@ export default {
     },
     removeAttachment($index) {
       this.attachmentList.splice($index, 1);
+    },
+    contributeContent() {
+      this.$router.push({
+        name: 'profile',
+        params: {
+          profileId: 'me',
+        },
+      });
     },
   },
 };

@@ -58,6 +58,7 @@ export default new Router({
     },
     {
       path: '/a',
+      name: 'Contribute',
       component: Contribute,
       props: true,
     },
