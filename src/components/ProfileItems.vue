@@ -1,10 +1,24 @@
 <template>
   <div class="profile-items">
     <div class="columns is-multiline is-mobile">
+      <div class="column is-one-third" v-if="person.isMe">
+        <router-link :to="{ name: 'Contribute' }" tag="div" class="button sui-contribute-new-item">
+          <div class="content">
+            <p>
+              <span class="icon">
+                <i class="fa fa-plus"></i>
+              </span>
+            </p>
+            <p>
+              ADD ITEM
+            </p>
+          </div>
+        </router-link>
+      </div>
       <template v-for="item in itemList">
         <div class="column is-one-third">
-          <div class="image is-1by1">
-            <img :src="item.content" @click="openModal(item)"/>
+          <div class="image is-1by1" @click="openModal(item)">
+            <img :src="item.content"/>
           </div>
         </div>
       </template>
@@ -110,4 +124,11 @@ export default {
 </script>
 
 <style lang="scss">
+.sui-contribute-new-item {
+  height: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 </style>
