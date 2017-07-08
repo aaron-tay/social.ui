@@ -1,37 +1,36 @@
 <template>
   <div class="home">
-    <nav class="nav has-shadow">
+    <nav class="navbar has-shadow">
       <div class="container">
-        <div class="nav-left">
+        <div class="navbar-brand">
           <a class="nav-item">
             social-ui
           </a>
-        </div>
-
-        <div class="nav-center is-hidden-tablet">
-          <span class="nav-item">
+          <span class="nav-item is-hidden-tablet">
             <router-link :to="{ name: 'login' }" class="button is-primary is-outlined">
               <span>Login</span>
             </router-link>
           </span>
-          <span class="nav-item">
+          <span class="nav-item is-hidden-tablet">
             <router-link :to="{ name: 'register' }" class="button is-primary">
               <span>Register</span>
             </router-link>
           </span>
         </div>
 
-        <div class="nav-right is-hidden-mobile">
-          <span class="nav-item">
-            <router-link :to="{ name: 'login' }" class="button is-primary is-outlined">
-              <span>Login</span>
-            </router-link>
-          </span>
-          <span class="nav-item">
-            <router-link :to="{ name: 'register' }" class="button is-primary">
-              <span>Register</span>
-            </router-link>
-          </span>
+        <div class="navbar-menu">
+          <div class="navbar-end">
+            <span class="nav-item">
+              <router-link :to="{ name: 'login' }" class="button is-primary is-outlined">
+                <span>Login</span>
+              </router-link>
+            </span>
+            <span class="nav-item">
+              <router-link :to="{ name: 'register' }" class="button is-primary">
+                <span>Register</span>
+              </router-link>
+            </span>
+          </div>
         </div>
       </div>
     </nav>

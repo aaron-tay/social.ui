@@ -23,13 +23,15 @@
                   </div>
                 </p>
                 <hr />
-                <p class="control has-icon">
-                  <input class="input" type="text" placeholder="Email">
-                  <span class="icon is-small">
-                    <i class="fa fa-envelope"></i>
-                  </span>
-                </p>
-                <div class="control is-grouped">
+                <div class="field">
+                  <p class="control has-icon">
+                    <input class="input" type="text" placeholder="Email">
+                    <span class="icon is-small">
+                      <i class="fa fa-envelope"></i>
+                    </span>
+                  </p>
+                </div>
+                <div class="field is-grouped">
                   <p class="control has-icon is-expanded">
                     <input class="input" type="password" placeholder="Password">
                     <span class="icon is-small">
@@ -42,18 +44,20 @@
                 </div>
                 <p class="has-text-centered">
                   <small>
-                    By registering you agree to our
+                    By registering you agree to our <br />
                     <a class="">
                       <strong>terms of service</strong>
                     </a>
                   </small>
                 </p>
                 <hr />
-                <p class="control">
-                  <router-link tag="button" :to="{ name: 'profile', params: { profileId: 'me' } }" class="button is-medium is-primary is-fullwidth">
-                    Create account
-                  </router-link>
-                </p>
+                <div class="field">
+                  <p class="control">
+                    <router-link tag="button" :to="{ name: 'profile', params: { profileId: 'me' } }" class="button is-medium is-primary is-fullwidth">
+                      Create account
+                    </router-link>
+                  </p>
+                </div>
               </form>
               <div class="box has-text-centered">
                 <router-link :to="{ name: 'login' }" class="button is-dark is-inverted is-fullwidth">

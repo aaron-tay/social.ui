@@ -1,70 +1,90 @@
 <template>
   <div class="contribute">
-    <nav class="nav has-shadow">
-      <div class="container">
-        <div class="nav-left">
-          <router-link :to="{ name: 'home' }" class="nav-item">
-            <img src="https://placehold.it/64x64" alt="social-ui"/>&nbsp;social-ui
-          </router-link>
-        </div>
 
-        <div class="nav-right">
-          <div class="nav-item">
-            <a class="button is-primary" @click="contributeContent">
-              POST
-            </a>
+    <section class="hero is-fullheight is-white sui-contribute">
+      <div class="hero-head sui-contribute-header">
+        <bar class="container">
+          <div slot="left" class="bar-content">
+            <router-link :to="{ name: 'home' }" class="navbar-item">
+              <img src="https://placehold.it/64x64" alt="social-ui"/>&nbsp;social-ui
+            </router-link>
           </div>
-        </div>
-      </div>
-    </nav>
 
-    <div class="section">
+          <div slot="right" class="bar-content">
+            <div class="navbar-item">
+              <div class="field">
+                <p class="control">
+                  <a class="button is-primary" @click="contributeContent">
+                    POST
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </bar>
+      </div>
+
+    <div class="hero-body">
       <div class="container">
         <form @submit.prevent>
-          <p class="control">
-            <textarea ref="caption" class="textarea" placeholder="Type a caption" v-model="caption"></textarea>
-          </p>
+          <div class="field">
+            <p class="control">
+              <textarea ref="caption" class="textarea" placeholder="Type a caption" v-model="caption"></textarea>
+            </p>
+          </div>
           <nav class="level is-mobile">
             <div class="level-left">
               <div class="level-item">
-                <p class="control has-addons">
-                  <button class="button is-white" @click="addAttachmentImage" :class="{ 'is-disabled': !canAddImages }">
-                    <span class="icon is-small">
-                      <i class="fa fa-picture-o"></i>
-                    </span>
-                  </button>
-                  <button class="button is-white" @click="addAttachmentVideo" :class="{ 'is-disabled': !canAddVideos }">
-                    <span class="icon is-small">
-                      <i class="fa fa-film"></i>
-                    </span>
-                  </button>
-                  <button class="button is-white" @click="addAttachmentLink" :class="{ 'is-disabled': !canAddLinks }">
-                    <span class="icon is-small">
-                      <i class="fa fa-link"></i>
-                    </span>
-                  </button>
-                  <button class="button is-white is-disabled">
-                    <span class="icon is-small">
-                      <i class="fa fa-map-marker"></i>
-                    </span>
-                  </button>
-                </p>
+                <div class="field has-addons">
+                  <p class="control">
+                    <button class="button is-white" @click="addAttachmentImage" :disabled="!canAddImages">
+                      <span class="icon is-small">
+                        <i class="fa fa-picture-o"></i>
+                      </span>
+                    </button>
+                  </p>
+                  <p class="control">
+                    <button class="button is-white" @click="addAttachmentVideo" :disabled="!canAddVideos">
+                      <span class="icon is-small">
+                        <i class="fa fa-film"></i>
+                      </span>
+                    </button>
+                  </p>
+                  <p class="control">
+                    <button class="button is-white" @click="addAttachmentLink" :disabled="!canAddLinks">
+                      <span class="icon is-small">
+                        <i class="fa fa-link"></i>
+                      </span>
+                    </button>
+                  </p>
+                  <p class="control">
+                    <button class="button is-white" disabled>
+                      <span class="icon is-small">
+                        <i class="fa fa-map-marker"></i>
+                      </span>
+                    </button>
+                  </p>
+                </div>
               </div>
             </div>
             <div class="level-center">
               <div class="level-item">
-                <p class="control has-addons">
-                  <button class="button is-white" @click="addHashTag">
-                    <span class="icon is-small">
-                      <i class="fa fa-hashtag"></i>
-                    </span>
-                  </button>
-                  <button class="button is-white" @click="addMention">
-                    <span class="icon is-small">
-                      <i class="fa fa-at"></i>
-                    </span>
-                  </button>
-                </p>
+                <div class="field has-addons">
+                  <p class="control">
+                    <button class="button is-white" @click="addHashTag">
+                      <span class="icon is-small">
+                        <i class="fa fa-hashtag"></i>
+                      </span>
+                    </button>
+                  </p>
+                  <p class="control">
+                    <button class="button is-white" @click="addMention">
+                      <span class="icon is-small">
+                        <i class="fa fa-at"></i>
+                      </span>
+                    </button>
+                  </p>
+                </div>
               </div>
             </div>
           </nav>
@@ -121,6 +141,7 @@
         </form>
       </div>
     </div>
+  </section>
 
   </div>
 </template>
@@ -130,6 +151,7 @@ import { mapActions, mapGetters } from 'vuex';
 import chance from '@/helpers/chance';
 import SuiHeader from './Header';
 import SuiFooter from './Footer';
+import Bar from './layout/Bar';
 
 export default {
   name: 'contribute',
@@ -137,6 +159,7 @@ export default {
   components: {
     SuiHeader,
     SuiFooter,
+    Bar,
   },
   data() {
     return {
@@ -233,4 +256,18 @@ export default {
   overflow-x: scroll;
   max-width: 95vw;
 }
+
+.sui-contribute.hero .hero-body {
+  align-items: initial;
+}
+
+.sui-contribute-header {
+  background-color: white;
+  height: 3.25rem;
+  align-items: center;
+  display: flex;
+  position: relative;
+  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1);
+}
+
 </style>

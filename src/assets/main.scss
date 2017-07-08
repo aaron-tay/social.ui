@@ -1,10 +1,6 @@
 @import './globals.scss';
 @import '~bulma/bulma';
 
-html {
-  background-color: #efefef;
-}
-
 // 1 heading + 3 more (essentially 4 lines)
 .media-content .content.max-lines--one-plus-three {
   // 6em is based on the default line-height of 1.5em
@@ -22,4 +18,25 @@ html {
   right: 0;
   top: 4.5em;
   width: 30%;
+}
+
+@media screen and (min-width: 1000px) {
+  .navbar-middle {
+    justify-content: flex-start;
+    margin-left: auto;
+  }
+
+  .navbar, .navbar-menu, .navbar-middle {
+    align-items: stretch;
+    display: flex;
+  }
+}
+
+// NOTE(ajt): this changed in bulma 0.3.0 > 0.4.3 but I like the style so bringing it back
+.navbar > .container {
+  align-items: stretch;
+  display: flex;
+}
+.navbar.has-shadow {
+  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1);
 }

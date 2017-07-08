@@ -14,40 +14,36 @@
             </div>
           </div>
           <div class="column is-two-thirds">
-            <div class="container">
-              <div class="columns">
-                <div class="column level is-mobile">
-                  <router-link :to="{ name: 'profile/items', params: { profileId } }" class="level-item has-text-centered">
-                    <div>
-                      <p>{{ person.stats.item }}</p>
-                      <p>Items</p>
-                    </div>
-                  </router-link>
-                  <router-link :to="{ name: 'profile/collections', params: { profileId } }" class="level-item has-text-centered">
-                    <div>
-                      <p>{{ person.stats.collection }}</p>
-                      <p>Collections</p>
-                    </div>
-                  </router-link>
-                  <router-link :to="{ name: 'profile/following', params: { profileId } }" class="level-item has-text-centered">
-                    <div>
-                      <p>{{ person.stats.followee }}</p>
-                      <p>Following</p>
-                    </div>
-                  </router-link>
-                  <router-link :to="{ name: 'profile/followers', params: { profileId } }" class="level-item has-text-centered">
-                    <div>
-                      <p>{{ person.stats.follower }}</p>
-                      <p>Followers</p>
-                    </div>
-                  </router-link>
-                </div>
+            <div class="columns">
+              <div class="column level is-mobile">
+                <router-link :to="{ name: 'profile/items', params: { profileId } }" class="level-item has-text-centered">
+                  <div>
+                    <p>{{ person.stats.item }}</p>
+                    <p>Items</p>
+                  </div>
+                </router-link>
+                <router-link :to="{ name: 'profile/collections', params: { profileId } }" class="level-item has-text-centered">
+                  <div>
+                    <p>{{ person.stats.collection }}</p>
+                    <p>Collections</p>
+                  </div>
+                </router-link>
+                <router-link :to="{ name: 'profile/following', params: { profileId } }" class="level-item has-text-centered">
+                  <div>
+                    <p>{{ person.stats.followee }}</p>
+                    <p>Following</p>
+                  </div>
+                </router-link>
+                <router-link :to="{ name: 'profile/followers', params: { profileId } }" class="level-item has-text-centered">
+                  <div>
+                    <p>{{ person.stats.follower }}</p>
+                    <p>Followers</p>
+                  </div>
+                </router-link>
               </div>
             </div>
             <!--  -->
-            <div class="container">
-              <router-view :person="person"></router-view>
-            </div>
+            <router-view :person="person"></router-view>
           </div>
         </div>
       </div>
